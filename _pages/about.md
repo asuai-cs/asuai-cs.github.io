@@ -4,7 +4,7 @@ title: about
 permalink: /
 subtitle: >
   <a href='https://www.linkedin.com/in/chukwunalu-asuai-a26b06167'>LinkedIn</a>. Fargo, ND, USA. 
-  jpnarphy@gmail.com. Motto: Advancing cybersecurity and high-performance computing through research.
+  jpnarphy@gmail.com. Motto: Advancing hardware security, cybersecurity and high-performance computing through research.
 
 profile:
   align: right
