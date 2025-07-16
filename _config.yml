@@ -3,13 +3,15 @@
 # -----------------------------------------------------------------------------
 
 title: blank # the website title (if blank, full name will be used instead)
-first_name: You
-middle_name: R.
-last_name: Name
-contact_note: >
-  You can even add a little note about which of these is the best way to reach you.
-description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+first_name: Chukwunalu    
+middle_name:J.
+last_name: Asuai
+contact_note: chukwunalu [dot] asuai @ ndsu [dot] edu
+description: Chukwunalu is a security and high-performance computing professional with over five years of experience in threat detection, incident response, and security architecture. He is a North Dakota State University graduate student and a graduate assistant, contributing to teaching and research. His academic work centers on High-Performance Computer Architecture, Hardware Security, and Formal Verification. Previously, as a graduate assistant at the University of Uyo, Nigeria, he mentored undergraduate students, fostering academic growth. Chukwunalu is passionate about advancing cybersecurity and computing research and aims to contribute significantly to academia through doctoral studies.
+author:
+  name: Chukwunalu J. Asuai
+  email: chukwunalu.asuai@ndsu.edu
+url: https://asuai-cs.github.io
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
