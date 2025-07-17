@@ -8,7 +8,7 @@ subtitle: >
 
 profile:
   align: right
-  image: assets/img/prof_pic.jpg
+  image: assets/img/profile.jpg
   image_circular: false
   more_info: >
     <p>1342 North Broadway</p>
