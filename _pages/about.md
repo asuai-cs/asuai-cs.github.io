@@ -13,7 +13,7 @@ profile:
    more_info: >    
      <p>1342 North Broadway<p>    
      <p>Fargo, ND 58102, USA <p>   
-     <p>1+1 701-200-4053 <p>1   
+     <p>+1 701-200-4053 <p>  
      <p><a href="mailto:chukwunalu.asuai@ndsu.edu">chukwunalu.asuai@ndsu.edu</a></p>
 selected_papers: true
 social: true
