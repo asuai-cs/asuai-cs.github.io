@@ -1,0 +1,29 @@
+main:
+  - title: "Home"
+    url: /
+    description: >
+      Welcome to the personal website of Chukwunalu Asuai — a researcher in high-performance computing, hardware security, and cybersecurity. Explore my academic and professional journey.
+
+  - title: "About"
+    url: /about/
+    description: >
+      I’m a Graduate research student at North Dakota State University specializing in formal verification, hardware security, and computer architecture. With over five years of experience in cybersecurity and teaching, my mission is to contribute cutting-edge solutions to digital security challenges.
+
+  - title: "Research"
+    url: /research/
+    description: >
+      My research spans speculative execution vulnerabilities, memory ordering, and formal verification of modern processors, along with applied cybersecurity solutions like phishing detection and risk assessment for SMEs.
+
+  - title: "Publications"
+    url: /publications/
+    description: >
+      Explore my published and submitted work, including:  
+      - *Formal Verification of LSQ-LFENCE for Memory Ordering and Security Assurance* (IEEE ICCST 2025)  
+      - *Exposing Phishing Strategies: Leveraging Machine Learning for Proactive Threat Identification* (Preprint, SpringerNature)  
+      - *Cybersecurity Risk Assessment for SMEs* (IOSR-JCE)  
+      - *Addressing Security Policy Misconfigurations* (IOSR-JEN)
+
+  - title: "CV"
+    url: /cv/
+    description: >
+      View and download my full academic and professional CV, including education, research, publications, teaching, certifications, and leadership experience.
