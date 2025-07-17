@@ -2,29 +2,27 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: blank # the website title (if blank, full name will be used instead)
-first_name: Chukwunalu    
-middle_name:J.
+title: Chukwunalu J. Asuai
+first_name: Chukwunalu
+middle_name: J.
 last_name: Asuai
-contact_note: chukwunalu.asuai@ndsu.edu
+contact_note: "chukwunalu.asuai@ndsu.edu"
 description: Chukwunalu is a security and high-performance computing professional with over five years of experience in threat detection, incident response, and security architecture. He is a North Dakota State University graduate student and a graduate assistant, contributing to teaching and research. His academic work centers on High-Performance Computer Architecture, Hardware Security, and Formal Verification. Previously, as a graduate assistant at the University of Uyo, Nigeria, he mentored undergraduate students, fostering academic growth. Chukwunalu is passionate about advancing cybersecurity and computing research and aims to contribute significantly to academia through doctoral studies.
 author:
   name: Chukwunalu J. Asuai
   email: chukwunalu.asuai@ndsu.edu
 url: https://asuai-cs.github.io
+baseurl: "" # Leave blank for root
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
   Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
-lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
-
-url: https://alshedivat.github.io # the base hostname & protocol for your site
-baseurl: /al-folio # the subpath of your site, e.g. /blog/. Leave blank for root
-last_updated: false # set to true if you want to display last updated in the footer
+keywords: jekyll, jekyll-theme, academic-website, portfolio-website, high-performance computing, hardware security, formal verification
+lang: en
+icon: ⚛️
+last_updated: false
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
-back_to_top: true # set to false to disable the back to top button
+back_to_top: true
 
 # -----------------------------------------------------------------------------
 # Theme
