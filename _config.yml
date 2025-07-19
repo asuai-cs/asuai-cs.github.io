@@ -224,6 +224,9 @@ defaults:
 
 sass:
   style: compressed
+  
+favicon: /favicon.ico
+
 
 # -----------------------------------------------------------------------------
 # Jekyll Minifier
