@@ -239,7 +239,7 @@ jekyll-minifier:
 
 terser:
   compress:
-    drop_console: true
+    drop_console: false
 
 # -----------------------------------------------------------------------------
 # Jekyll Archives
