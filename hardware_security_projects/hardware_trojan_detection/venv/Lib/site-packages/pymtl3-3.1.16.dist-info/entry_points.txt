@@ -1,0 +1,3 @@
+[pytest11]
+pytest-pymtl3 = pytest_plugin.pytest_pymtl3
+

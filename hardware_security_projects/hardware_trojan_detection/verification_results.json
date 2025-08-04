@@ -1,0 +1,9 @@
+{
+  "properties_checked": 3,
+  "violations_found": 0,
+  "warnings": [
+    "Error verifying property 'not (And(rare_signal1 == True, rare_signal2 == True))': 'NoneType' object is not subscriptable",
+    "Error verifying property 'ForAll([plaintext], ciphertext != plaintext)': 'NoneType' object is not subscriptable",
+    "Error verifying property 'done == False Until round == 10': invalid syntax (<string>, line 1)"
+  ]
+}

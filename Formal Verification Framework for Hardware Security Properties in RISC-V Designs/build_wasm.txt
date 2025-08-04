@@ -1,0 +1,20 @@
+```bash
+# Project: Formal Verification Framework for RISC-V Security (WASM Build)
+# 
+# What it does:
+# This script compiles symbiyosys_wrapper.rs to WebAssembly for the dashboard.
+#
+# How we built it:
+# 1. Setup:
+#    - Installed Rust and wasm-pack.
+#    - Created Cargo.toml for WASM project.
+# 2. Usage:
+#    - Run: `bash build_wasm.sh`.
+#    - Outputs symbiyosys_wrapper.js and .wasm to project directory.
+# 3. Notes:
+#    - Ensure Rust and wasm-pack are installed.
+#    - Run in the same directory as symbiyosys_wrapper.rs.
+
+#!/bin/bash
+wasm-pack build --target web --out-dir ../ --out-name symbiyosys_wrapper
+```

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Hardware Security Report</title>
+        <style>
+           body { font-family: Arial, sans-serif; margin: 20px; }
+            .critical { color: #e74c3c; font-weight: bold; }
+            .finding { margin: 15px 0; padding: 10px; border-left: 4px solid #e74c3c; }
+            pre { background: #f8f9fa; padding: 10px; }
+        </style>
+    </head>
+    <body>
+        <h1>Hardware Security Verification Report</h1>
+        <p>Generated: 2025-08-03T17:45:16.906758</p>
+
+    
+        <h2>Summary</h2>
+        <ul>
+            <li>Properties checked: 25</li>
+            <li>Violations found: <span class="critical">1</span></li>
+            <li>Trojan findings: 1</li>
+        </ul>
+        
+        
+        <!-- ===== VISUALIZATION ADDITION ===== -->
+        <h2>Visual Analysis</h2>
+        <div id="chart" style="width:600px; height:400px;"></div>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script>
+            var data = {
+                x: ['Properties', 'Violations', 'Trojans'],
+                y: [25, 1, 1],
+                type: 'bar',
+                marker: { color: ['#3498db', '#e74c3c', '#f39c12'] }
+            };
+            Plotly.newPlot('chart', [data], {
+                title: 'Verification Metrics Overview',
+                yaxis: { title: 'Count' }
+            });
+        </script>
+        <!-- ===== END VISUALIZATION ===== -->
+
+        <h2>Detailed Findings</h2>
+        <div class="finding">
+            <h3>Trojan Detected</h3>
+            <pre>[
+  {
+    "type": "rare_trigger",
+    "severity": "critical",
+    "description": "Rare signal combination activates Trojan",
+    "signals": {
+      "rare_signal1": "True",
+      "rare_signal2": "True"
+    }
+  }
+]</pre>
+        </div>
+    </body>
+    </html>

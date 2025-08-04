@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "tool": "Hardware Security Verifier",
+    "version": "2.1",
+    "timestamp": "2025-08-03T17:45:16.906758"
+  },
+  "signals": {
+    "clk": {
+      "type": "input",
+      "width": 1,
+      "security": "normal"
+    },
+    "rst": {
+      "type": "input",
+      "width": 1,
+      "security": "normal"
+    },
+    "plaintext": {
+      "type": "input",
+      "width": 1,
+      "security": "normal"
+    },
+    "key": {
+      "type": "input",
+      "width": 1,
+      "security": "sensitive"
+    },
+    "start": {
+      "type": "input",
+      "width": 1,
+      "security": "normal"
+    },
+    "reg": {
+      "type": "output",
+      "width": 1,
+      "security": "normal"
+    },
+    "rare_signal1": {
+      "type": "input",
+      "width": 1,
+      "security": "normal"
+    },
+    "rare_signal2": {
+      "type": "input",
+      "width": 1,
+      "security": "normal"
+    },
+    "round": {
+      "type": "reg",
+      "width": 4,
+      "security": "normal"
+    },
+    "state": {
+      "type": "reg",
+      "width": 128,
+      "security": "normal"
+    },
+    "round_key": {
+      "type": "reg",
+      "width": 128,
+      "security": "normal"
+    },
+    "trojan_trigger": {
+      "type": "wire",
+      "width": 1,
+      "security": "normal"
+    }
+  },
+  "properties_checked": 25,
+  "violations_found": 1,
+  "trojan_findings": [
+    {
+      "type": "rare_trigger",
+      "severity": "critical",
+      "description": "Rare signal combination activates Trojan",
+      "signals": {
+        "rare_signal1": "True",
+        "rare_signal2": "True"
+      }
+    }
+  ],
+  "security_warnings": [
+    {
+      "type": "key_leakage",
+      "severity": "high",
+      "description": "Potential key leakage detected"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ForAll([plaintext, key], ciphertext != plaintext)",
+      "error": "'NoneType' object is not subscriptable"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ForAll([round], Implies(round < 10, done == False))",
+      "error": "'(' was never closed (<string>, line 1)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: Exists([plaintext1, plaintext2], ciphertext1 != ciphertext2)",
+      "error": "No valid variables in Exists"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ForAll([rare_signal1, rare_signal2],",
+      "error": "Malformed ForAll expression"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: Implies(And(rare_signal1 == True, rare_signal2 == True),",
+      "error": "invalid syntax (<string>, line 0)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ciphertext[7:0] != key[7:0]))",
+      "error": "unmatched ')' (<string>, line 1)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ForAll([key],",
+      "error": "Malformed ForAll expression"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: Implies(And(start == True, round < 10),",
+      "error": "invalid syntax (<string>, line 0)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: Extract(7, 0, ciphertext) != Extract(7, 0, key)))",
+      "error": "unmatched ')' (<string>, line 1)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ForAll([user_mode],",
+      "error": "Malformed ForAll expression"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: Implies(user_mode == True,",
+      "error": "invalid syntax (<string>, line 0)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: privileged == False))",
+      "error": "unmatched ')' (<string>, line 1)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ForAll([plaintext1, plaintext2],",
+      "error": "Malformed ForAll expression"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: Implies(And(start1 == True, start2 == True),",
+      "error": "invalid syntax (<string>, line 0)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: cycle_count1 == cycle_count2))",
+      "error": "unmatched ')' (<string>, line 1)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: Not(Exists([key_bit],",
+      "error": "Malformed Exists expression"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: And(If(key_bit == 1, branch_taken1, branch_taken2),",
+      "error": "'(' was never closed (<string>, line 1)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: branch_taken1 != branch_taken2)))",
+      "error": "unmatched ')' (<string>, line 1)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: Exists([rare_signal1, rare_signal2],",
+      "error": "Malformed Exists expression"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: And(rare_signal1 == True,",
+      "error": "'(' was never closed (<string>, line 1)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ciphertext[7:0] == key[7:0]))",
+      "error": "unmatched ')' (<string>, line 1)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ForAll([trigger_condition],",
+      "error": "Malformed ForAll expression"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: Implies(trigger_condition == True,",
+      "error": "invalid syntax (<string>, line 0)"
+    },
+    {
+      "type": "property_error",
+      "severity": "medium",
+      "description": "Failed to verify property: ciphertext[127:8] == 0))",
+      "error": "unmatched ')' (<string>, line 1)"
+    }
+  ],
+  "execution_time": 0.015994
+}

@@ -1,0 +1,58 @@
+# ======================
+# AES CORE SECURITY PROPERTIES
+# ======================
+
+# ----- CORE FUNCTIONALITY -----
+#1. No ciphertext = plaintext
+ForAll([plaintext, key], ciphertext != plaintext)
+
+#2. Fixed-time completion
+ForAll([round], Implies(round < 10, done == False))
+
+#3. No silent failures
+Exists([plaintext1, plaintext2], ciphertext1 != ciphertext2)
+
+
+# ----- HARDWARE TROJAN CHECKS -----
+#4. Rare trigger detection
+ForAll([rare_signal1, rare_signal2], 
+       Implies(And(rare_signal1 == True, rare_signal2 == True),
+              ciphertext[7:0] != key[7:0]))
+
+#5. Key isolation
+ForAll([key], 
+       Implies(And(start == True, round < 10),
+              Extract(7, 0, ciphertext) != Extract(7, 0, key)))
+
+#6. No privilege escalation
+ForAll([user_mode], 
+       Implies(user_mode == True, 
+              privileged == False))
+
+
+# ----- SIDE-CHANNEL PROTECTION -----
+#7. Constant-time execution
+ForAll([plaintext1, plaintext2],
+       Implies(And(start1 == True, start2 == True),
+              cycle_count1 == cycle_count2))
+
+#8. No secret-dependent branches
+Not(Exists([key_bit], 
+           And(If(key_bit == 1, branch_taken1, branch_taken2),
+               branch_taken1 != branch_taken2)))
+
+
+# ======================
+# TROJAN SPECIFIC PROPERTIES
+# ======================
+
+#9. Trigger condition uniqueness
+Exists([rare_signal1, rare_signal2],
+       And(rare_signal1 == True, 
+           rare_signal2 == True,
+           ciphertext[7:0] == key[7:0]))
+
+#10. Payload verification
+ForAll([trigger_condition],
+       Implies(trigger_condition == True,
+              ciphertext[127:8] == 0))

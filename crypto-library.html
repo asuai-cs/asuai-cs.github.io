@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptographic Library Code</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <i>
+    <header>
+        <h1>Cryptographic Library Code</h1>
+    </header>
+    <main>
+        <pre><code>
+# crypto_library.py
+
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+import base64
+
+class CryptoLibrary:
+    def __init__(self, key):
+        self.key = key
+
+    def encrypt(self, plaintext):
+        cipher = AES.new(self.key, AES.MODE_EAX)
+        ciphertext, tag = cipher.encrypt_and_digest(plaintext.encode())
+        return base64.b64encode(cipher.nonce + tag + ciphertext).decode()
+
+    def decrypt(self, b64_ciphertext):
+        ciphertext = base64.b64decode(b64_ciphertext)
+        nonce, tag, ciphertext = ciphertext[:16], ciphertext[16:32], ciphertext[32:]
+        cipher = AES.new(self.key, AES.MODE_EAX, nonce=nonce)
+        plaintext = cipher.decrypt_and_verify(ciphertext, tag)
+        return plaintext.decode()
+
+# Scenario
+if __name__ == "__main__":
+    key = get_random_bytes(16)
+    crypto = CryptoLibrary(key)
+    
+    message = "Secret Message"
+    encrypted_message = crypto.encrypt(message)
+    print(f"Encrypted: {encrypted_message}")
+    
+    decrypted_message = crypto.decrypt(encrypted_message)
+    print(f"Decrypted: {decrypted_message}")
+        </code></pre>
+    </main>
+    <footer>
+        <p>© 2025 Chukwunalu Asuai</p>
+    </footer>
+    </i>
+</body>
+</html>

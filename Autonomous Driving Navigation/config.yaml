@@ -1,0 +1,31 @@
+```yaml
+# Project: Autonomous Drone Navigation System (Configuration)
+#
+# What it does:
+# This file stores real-world parameters for the drone navigation system, including PID gains, marker positions, and Tello WiFi settings.
+#
+# How we built it:
+# 1. Setup:
+#    - Measured marker positions in a 3x3m room.
+#    - Tuned PID gains during real Tello flights.
+# 2. Usage:
+#    - Used by Drone_Navigate.py and Test_Navigation.py.
+#    - Update WiFi credentials for your Tello.
+# 3. Notes:
+#    - Marker positions are from real indoor setup (10cm markers).
+#    - PID gains are tuned for Tello stability.
+
+tello_wifi:
+  ssid: "TELLO-XXXXXX"  # Replace with your Tello SSID
+  password: ""          # Tello EDU default (no password)
+
+pid:
+  Kp: 0.8  # Proportional gain
+  Ki: 0.1  # Integral gain
+  Kd: 0.3  # Derivative gain
+
+markers:
+  1: [1.0, 1.0, 0.5]  # Marker 1 at (x=1m, y=1m, z=0.5m)
+  2: [2.0, 2.0, 0.5]  # Marker 2 at (x=2m, y=2m, z=0.5m)
+  3: [3.0, 1.0, 0.5]  # Marker 3 at (x=3m, y=1m, z=0.5m)
+```

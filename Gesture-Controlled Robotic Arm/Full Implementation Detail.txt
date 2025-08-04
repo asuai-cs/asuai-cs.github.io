@@ -1,0 +1,43 @@
+Full Explanation and Implementation Steps
+The comment blocks in each code file provide detailed instructions, but here’s a consolidated overview for clarity:
+
+Hardware Setup:
+Components: Arduino Nano, 4x 2.2-inch flex sensors, MPU6050 IMU, 6-DOF robotic arm (with 6 servos), PCA9685 servo controller, Raspberry Pi 4, 5V power supply.
+Connections:
+Flex sensors: Connect to Arduino analog pins A0-A3 with 10kΩ resistors in a voltage divider configuration.
+MPU6050: Connect to Arduino I2C pins (SDA: A4, SCL: A5, VCC: 3.3V, GND: GND).
+PCA9685: Connect to Raspberry Pi I2C pins (SDA: GPIO 2, SCL: GPIO 3, VCC: 5V, GND: GND). Connect servos to PCA9685 channels 0-5.
+Arduino to Raspberry Pi: Use USB cable for serial communication (/dev/ttyUSB0).
+Safety: Ensure secure wiring and proper power supply (5V, high current for servos). Test servos individually to avoid overextension.
+Software Setup:
+Arduino:
+Install Arduino IDE and libraries: Wire, Adafruit_MPU6050, ArduinoJson.
+Upload Gesture_Glove.ino to the Arduino Nano.
+Raspberry Pi:
+Install Raspberry Pi OS (64-bit).
+Install Python libraries: pyserial, adafruit-circuitpython-servokit, numpy.
+Save Gesture_Control.py and Calibrate_Sensors.py on the Raspberry Pi.
+Calibration: Run Calibrate_Sensors.py first to generate calibration.json, then update Gesture_Glove.ino with calibration values (or load them dynamically in Gesture_Control.py).
+Calibration:
+Run Calibrate_Sensors.py with the glove worn, following prompts to straighten and bend fingers.
+Verify calibration data in calibration.json and update FLEX_MIN and FLEX_MAX in Gesture_Glove.ino if needed.
+Test IMU offsets by holding the glove in a neutral position and checking for near-zero values after offset correction.
+Testing and Calibration:
+Arduino: Use Serial Monitor (115200 baud) to verify JSON output from Gesture_Glove.ino.
+Raspberry Pi: Test serial communication with minicom -D /dev/ttyUSB0 -b 115200.
+Arm Control: Test Gesture_Control.py with simple gestures (e.g., open/close hand, tilt wrist) and verify arm movement.
+Calibrate servo angles and kinematic parameters (L1, L2, L3) based on your arm’s geometry.
+Deployment and Optimization:
+Deploy the system for pick-and-place tasks (e.g., moving a small object).
+Optimize control loop for low latency (<100 ms) by adjusting delay in both scripts.
+Add error handling for serial disconnections and invalid sensor data.
+Secure the glove and arm components to prevent mechanical stress.
+Documentation for Website:
+Create a GitHub repository with all code files, a README, and a block diagram (use Lucidchart or Draw.io).
+Record a demo video showing gesture control and pick-and-place tasks (use OBS Studio).
+Host the code and video on your website, linking to the GitHub repository.
+Notes
+Robotic Arm: The inverse kinematics is simplified for 3-DOF positioning. For a full 6-DOF arm, extend the inverse_kinematics function with additional joints and orientation control [].
+Gesture Mapping: The current mapping uses average flex angles for gripper control and IMU acceleration for position. Enhance with machine learning (e.g., KNN classifier) for complex gestures [].
+Power Management: Use a high-current 5V supply for servos to avoid brownouts.
+Safety: Ensure the arm’s workspace is clear to prevent collisions during testing.
