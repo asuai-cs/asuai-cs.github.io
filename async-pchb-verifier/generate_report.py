@@ -1,58 +1,77 @@
-def generate_html_report(json_file: str):
+# async-pchb-verifier/generate_report.py
+import json
+import os
+from pathlib import Path
+
+def format_trojans(detections):
+    """Helper function to format trojan detections"""
+    if not detections:
+        return "<p class='success'>✓ No trojans detected</p>"
+    
+    table_rows = []
+    for d in detections:
+        table_rows.append(f"""
+        <tr>
+            <td>{d['name']}</td>
+            <td>{d['type']}</td>
+            <td>{d['severity']}</td>
+            <td><pre>{d['model']}</pre></td>
+        </tr>
+        """)
+    
+    return f"""
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Severity</th>
+            <th>Model</th>
+        </tr>
+        {"".join(table_rows)}
+    </table>
+    """
+
+def generate_html_report(json_file: str, output_dir: str = "results/latest_run"):
     """Convert JSON results to interactive HTML"""
-    with open(json_file) as f:
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    
+    with open(json_file, encoding='utf-8') as f: 
         data = json.load(f)
     
-    html = f"""
+    html_content = f"""
     <!DOCTYPE html>
     <html>
     <head>
         <title>PCHB Verification Report</title>
-        <script src="https://d3js.org/d3.v7.min.js"></script>
         <style>
-            .violation {{ color: #e74c3c; }}
-            .trojan-model {{ font-family: monospace; }}
+            body {{ font-family: Arial, sans-serif; margin: 20px; }}
+            h1 {{ color: #2c3e50; }}
+            .violation {{ color: #e74c3c; font-weight: bold; }}
+            .success {{ color: #27ae60; }}
+            table {{ border-collapse: collapse; width: 100%; }}
+            th, td {{ padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }}
+            pre {{ margin: 0; }}
         </style>
     </head>
     <body>
-        <h1>PCHB Verification Results</h1>
+        <h1>PCHB Verification Report</h1>
         
-        <div id="handshake-results">
-            <h2>Handshake Compliance</h2>
-            <p>{len(data['results']['handshake_violations'])} violations</p>
-        </div>
+        <h2>Handshake Compliance</h2>
+        {"<p class='violation'>❌ " + "<br>".join(data['results']['handshake_violations']) + "</p>" 
+         if data['results']['handshake_violations'] 
+         else "<p class='success'>✓ No violations detected</p>"}
         
-        <div id="trojan-results">
-            <h2>Trojan Detections</h2>
-            <svg id="trojan-chart" width="400" height="200"></svg>
-            <div class="trojan-models">
-                {self._format_trojan_findings(data['results']['trojan_detections'])}
-            </div>
-        </div>
+        <h2>Trojan Detections</h2>
+        {format_trojans(data['results']['trojan_detections'])}
         
-        <script>
-            // D3.js visualization
-            const trojans = {json.dumps(data['results']['trojan_detections'])};
-            const svg = d3.select("#trojan-chart");
-            
-            svg.selectAll("circle")
-               .data(trojans)
-               .enter()
-               .append("circle")
-               .attr("cx", (d,i) => 50 + i * 100)
-               .attr("cy", 100)
-               .attr("r", d => d.severity === 'critical' ? 20 : 10)
-               .attr("fill", d => d.severity === 'critical' ? "red" : "orange");
-        </script>
+        <h2>Timing Violations</h2>
+        {"<p class='violation'>❌ " + "<br>".join(data['results']['timing_violations']) + "</p>" 
+         if data['results']['timing_violations'] 
+         else "<p class='success'>✓ No violations detected</p>"}
     </body>
     </html>
     """
     
-    with open("pchb_report.html", "w") as f:
-        f.write(html)
-
-def _format_trojan_findings(detections: list) -> str:
-    return "\n".join(
-        f"<div class='trojan-model'><b>{d['name']}</b>: {d['model']}</div>"
-        for d in detections
-    )
+    output_path = os.path.join(output_dir, "pchb_report.html")
+    with open(output_path, 'w', encoding='utf-8') as f:  # Add encoding here
+        f.write(html_content)

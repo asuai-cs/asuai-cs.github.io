@@ -11,6 +11,7 @@ import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
+from generate_report import generate_html_report
 
 @dataclass
 class PCHBProperties:
@@ -180,6 +181,7 @@ class PCHBVerifier:
             else:
                 stack.append(Or(left, right))
 
+    # Then modify the _generate_report method:
     def _generate_report(self):
         """Output verification results"""
         report = {
@@ -189,11 +191,17 @@ class PCHBVerifier:
             },
             "results": self.results
         }
-        
-        with open("pchb_report.json", "w") as f:
+    
+        json_path = "pchb_report.json"
+        with open(json_path, 'w') as f:
             json.dump(report, f, indent=2)
-        
-        print("Verification complete. Report generated at pchb_report.json")
+    
+        # Generate HTML report
+        generate_html_report(json_path, "results/latest_run")
+    
+        print(f"Verification complete. Reports generated at:\n"
+              f"- {json_path}\n"
+              f"- results/latest_run/pchb_report.html")
 
 if __name__ == "__main__":
     verifier = PCHBVerifier()

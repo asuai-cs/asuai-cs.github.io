@@ -1,0 +1,53 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>PCHB Verification Report</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1 { color: #2c3e50; }
+            .violation { color: #e74c3c; font-weight: bold; }
+            .success { color: #27ae60; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+            pre { margin: 0; }
+        </style>
+    </head>
+    <body>
+        <h1>PCHB Verification Report</h1>
+        
+        <h2>Handshake Compliance</h2>
+        <p class='success'>✓ No violations detected</p>
+        
+        <h2>Trojan Detections</h2>
+        
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Severity</th>
+            <th>Model</th>
+        </tr>
+        
+        <tr>
+            <td>Early-Ack Trojan</td>
+            <td>handshake_violation</td>
+            <td>critical</td>
+            <td><pre>[req = True, en = False, ack = False]</pre></td>
+        </tr>
+        
+        <tr>
+            <td>Data-Leak Trojan</td>
+            <td>information_leakage</td>
+            <td>high</td>
+            <td><pre>[req = True, req_next = False, en = False, ack = False]</pre></td>
+        </tr>
+        
+    </table>
+    
+        
+        <h2>Timing Violations</h2>
+        <p class='success'>✓ No violations detected</p>
+    </body>
+    </html>
+    
