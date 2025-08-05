@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "tool": "PCHB-Verifier",
+    "version": "1.0"
+  },
+  "results": {
+    "handshake_violations": [],
+    "trojan_detections": [
+      {
+        "name": "Early-Ack Trojan",
+        "type": "handshake_violation",
+        "severity": "critical",
+        "model": "[req = True, en = False, ack = False]"
+      },
+      {
+        "name": "Data-Leak Trojan",
+        "type": "information_leakage",
+        "severity": "high",
+        "model": "[req = True, req_next = False, en = False, ack = False]"
+      }
+    ],
+    "timing_violations": []
+  }
+}

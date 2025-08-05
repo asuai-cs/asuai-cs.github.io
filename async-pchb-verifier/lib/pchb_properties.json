@@ -1,0 +1,23 @@
+{
+  "handshake": [
+    "req -> !ack",
+    "ack -> X(!req)"
+  ],
+  "stability": [
+    "en -> stable(data)"
+  ],
+  "trojan_patterns": [
+    {
+      "name": "Early-Ack Trojan",
+      "type": "handshake_violation",
+      "severity": "critical",
+      "logic": "req & !en & ack"
+    },
+    {
+      "name": "Data-Leak Trojan",
+      "type": "information_leakage",
+      "severity": "high",
+      "logic": "!en & data_0 & data_1"
+    }
+  ]
+}
