@@ -185,6 +185,13 @@ Most recently, during Fall 2025, Chukwunalu volunteered at North Dakota State Un
                     <p>A neural network accelerator for a 2-layer MLP on a custom ASIC, using a 4x4 systolic array for MNIST digit classification.</p>
                 </div>
 				
+				<div class="project-item">
+                    <h3><a href="async-pchb.html">PCHB Trojan Detector</a></h3>
+                    <p>Formal verification for asynchronous circuits</p>
+                    <button class="project-modal-btn" 
+                            data-modal="pchb-modal">View Details</button>
+                </div>
+				
 				
 				<div class="project-item">
                     <h3><a href="hardware-trojan.html">Hardware Trojan Detector</a></h3>
@@ -193,6 +200,15 @@ Most recently, during Fall 2025, Chukwunalu volunteered at North Dakota State Un
                 </div>
 
 				<!-- Add this modal at bottom of index.html -->
+				
+				<!-- Modal (add at bottom of body) -->
+                <div id="pchb-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <iframe src="async-pchb-verifier/results/latest_run/coverage.html"
+                                style="width:100%; height:80vh;"></iframe>
+                    </div>
+                </div>
                 <div id="trojan-modal" class="modal">
                     <div class="modal-content">
                         <span class="close-modal">&times;</span>

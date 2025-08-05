@@ -178,3 +178,29 @@ document.querySelectorAll('.run-verification').forEach(btn => {
         }
     });
 });
+
+// Add to your existing modal handling
+document.addEventListener('DOMContentLoaded', function() {
+    // PCHB Modal handling
+    const pchbModal = document.getElementById('pchb-modal');
+    const pchbBtn = document.querySelector('[data-modal="pchb-modal"]');
+    
+    if (pchbBtn) {
+        pchbBtn.addEventListener('click', function() {
+            pchbModal.style.display = 'block';
+        });
+    }
+
+    // Close modal when clicking X
+    const closePchb = pchbModal.querySelector('.close-modal');
+    closePchb.addEventListener('click', function() {
+        pchbModal.style.display = 'none';
+    });
+
+    // Close when clicking outside modal
+    window.addEventListener('click', function(event) {
+        if (event.target === pchbModal) {
+            pchbModal.style.display = 'none';
+        }
+    });
+});
