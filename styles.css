@@ -15,7 +15,21 @@ header, footer {
 }
 header h1 {
     margin: 0;
-    font-size: 2rem;
+    font-family: 'Cinzel', serif; /* Stylish and bold serif font */
+    font-size: 2.5rem;
+    font-weight: 900; /* Extra bold for impact */
+    color: #1E3A8A; /* Rich navy for a professional look */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3); /* Enhanced shadow for style */
+    letter-spacing: 1.5px; /* Elegant spacing */
+}
+header h2 {
+    margin: 0;
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 700; /* Bold for subtitle */
+    color: #F59E0B; /* Warm amber for contrast */
+    font-style: italic; /* Stylish touch */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 nav {
     position: sticky;
@@ -29,17 +43,21 @@ nav ul {
     padding: 15px 0;
     margin: 0;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 nav ul li {
     display: inline-block;
-    margin: 0 15px;
+    margin: 0 10px;
 }
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-size: 1rem;
-    padding: 10px 15px;
+    font-size: 0.9rem;
+    padding: 8px 12px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
 }
 nav ul li a:hover {
     color: white;
@@ -55,6 +73,10 @@ nav ul li a:hover {
     nav ul li {
         margin: 5px 0;
     }
+    nav ul li a {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
 }
 main {
     padding: 25px;
@@ -68,8 +90,8 @@ section {
 }
 h2 {
     color: #2c3e50;
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
 }
 ul {
     padding-left: 25px;
@@ -85,11 +107,11 @@ h1, h2, h3 {
     font-weight: 700;
 }
 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 h3 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
 }
 p, ul, li {
@@ -451,7 +473,7 @@ code {
     content: none;
 }
 .code-styled span.comment {
-    color: #008000; /* Green for comments */
+    color: #008000;
 }
 @media (max-width: 600px) {
     .content-flex {
@@ -551,8 +573,6 @@ code {
     padding: 10px;
 }
 
-
-
 /* Add to your existing styles */
 .report-container {
     background: white;
@@ -576,3 +596,6 @@ code {
     font-size: 0.9rem;
     color: #2c3e50;
 }
+
+/* Import Cinzel font */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap');
