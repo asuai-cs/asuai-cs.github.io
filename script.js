@@ -1,9 +1,14 @@
-// Smooth scrolling for navigation links
+
+// Smooth scrolling for navigation links (only for hash links)
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href;
+            document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+        }
+        // Non-hash links (like cv.html) will navigate normally
     });
 });
 
@@ -115,7 +120,6 @@ document.querySelectorAll('.project-modal-btn').forEach(btn => {
         const modalId = btn.dataset.modal;
         const modal = document.getElementById(modalId);
         modal.classList.add('show');
-        // Reset tabs to show first tab
         const tabContainer = modal.querySelector('.tab-container');
         if (tabContainer) {
             const tabs = tabContainer.querySelectorAll('.tab-btn');
@@ -156,32 +160,13 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 // Highlight comments in code blocks
 document.querySelectorAll('code.code-styled').forEach(codeBlock => {
     let code = codeBlock.innerHTML;
-    // Highlight Verilog/VHDL comments (// or --)
     code = code.replace(/(\/\/[^\n]*|(--[^\n]*))/g, '<span class="comment">$1</span>');
-    // Highlight Python comments (#)
     code = code.replace(/(#[^\n]*)/g, '<span class="comment">$1</span>');
     codeBlock.innerHTML = code;
 });
 
-// Add to your existing script.js
-document.querySelectorAll('.run-verification').forEach(btn => {
-    btn.addEventListener('click', async () => {
-        const output = document.getElementById('verification-output');
-        output.textContent = "Running verification...";
-        
-        try {
-            const response = await fetch('http://localhost:5001/verify/aes_core');
-            const data = await response.json();
-            output.innerHTML = data.output.replace(/\n/g, '<br>');
-        } catch (e) {
-            output.textContent = "Error: Backend not running";
-        }
-    });
-});
-
 // Add to your existing modal handling
 document.addEventListener('DOMContentLoaded', function() {
-    // PCHB Modal handling
     const pchbModal = document.getElementById('pchb-modal');
     const pchbBtn = document.querySelector('[data-modal="pchb-modal"]');
     
@@ -191,13 +176,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Close modal when clicking X
     const closePchb = pchbModal.querySelector('.close-modal');
     closePchb.addEventListener('click', function() {
         pchbModal.style.display = 'none';
     });
 
-    // Close when clicking outside modal
     window.addEventListener('click', function(event) {
         if (event.target === pchbModal) {
             pchbModal.style.display = 'none';
