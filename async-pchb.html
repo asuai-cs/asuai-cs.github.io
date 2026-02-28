@@ -1,78 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asynchronous PCHB Circuit Verification</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-    .success { color: #38a169; }
-    .critical { color: #e53e3e; }
-    .high { color: #dd6b20; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Chukwunalu Asuai">
+    <title>PCHB Trojan Detector | Chukwunalu (J) Asuai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <script src="script.js" defer></script>
 </head>
-<body class="bg-gray-100">
-  <nav class="bg-gray-800 text-white p-4 sticky top-0">
-    <ul class="flex space-x-4 justify-center">
-      <li><a href="#home" class="hover:text-teal-300">Home</a></li>
-      <li><a href="#report" class="hover:text-teal-300">Verification Report</a></li>
-      <li><a href="#about" class="hover:text-teal-300">About</a></li>
-    </ul>
-  </nav>
+<body>
+    <!-- HERO -->
+    <header class="hero-header">
+      <svg class="hero-bg-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 380" preserveAspectRatio="xMidYMid slice">
+        <rect width="1440" height="380" fill="#060d1a"/>
+        <g stroke="#0a2a4a" stroke-width="1">
+          <line x1="0" y1="60" x2="1440" y2="60"/><line x1="0" y1="120" x2="1440" y2="120"/>
+          <line x1="0" y1="180" x2="1440" y2="180"/><line x1="0" y1="240" x2="1440" y2="240"/>
+          <line x1="0" y1="300" x2="1440" y2="300"/>
+          <line x1="120" y1="0" x2="120" y2="380"/><line x1="240" y1="0" x2="240" y2="380"/>
+          <line x1="360" y1="0" x2="360" y2="380"/><line x1="480" y1="0" x2="480" y2="380"/>
+          <line x1="600" y1="0" x2="600" y2="380"/><line x1="720" y1="0" x2="720" y2="380"/>
+          <line x1="840" y1="0" x2="840" y2="380"/><line x1="960" y1="0" x2="960" y2="380"/>
+          <line x1="1080" y1="0" x2="1080" y2="380"/><line x1="1200" y1="0" x2="1200" y2="380"/>
+          <line x1="1320" y1="0" x2="1320" y2="380"/>
+        </g>
+        <g stroke="#00cfff" stroke-width="1.5" fill="none" opacity="0.55">
+          <polyline points="800,60 860,60 860,120 960,120 960,60 1080,60"/>
+          <polyline points="960,120 960,180 1080,180 1080,240 1200,240"/>
+          <polyline points="1080,60 1080,0"/>
+          <polyline points="1200,240 1200,300 1320,300 1320,240"/>
+          <polyline points="840,180 840,240 720,240 720,300 600,300"/>
+          <polyline points="720,240 720,180 600,180 600,120 480,120"/>
+          <polyline points="480,120 360,120 360,60 240,60 240,120 120,120"/>
+          <polyline points="360,60 360,0"/>
+          <polyline points="1320,300 1320,360 1440,360"/>
+        </g>
+        <g fill="#00cfff" opacity="0.85">
+          <circle cx="860" cy="60" r="4"/><circle cx="960" cy="60" r="4"/>
+          <circle cx="960" cy="120" r="4"/><circle cx="1080" cy="60" r="4"/>
+          <circle cx="1080" cy="180" r="4"/><circle cx="1200" cy="240" r="4"/>
+          <circle cx="1320" cy="300" r="4"/><circle cx="720" cy="240" r="4"/>
+          <circle cx="600" cy="180" r="4"/><circle cx="480" cy="120" r="4"/>
+          <circle cx="360" cy="120" r="4"/><circle cx="360" cy="60" r="4"/>
+          <circle cx="240" cy="60" r="4"/>
+        </g>
+        <g fill="#0d2540" stroke="#00cfff" stroke-width="0.8" opacity="0.5">
+          <rect x="910" y="150" width="60" height="40" rx="2"/>
+          <rect x="1110" y="210" width="60" height="40" rx="2"/>
+          <rect x="290" y="88" width="40" height="34" rx="2"/>
+        </g>
+        <defs>
+          <radialGradient id="glow" cx="65%" cy="50%" r="35%">
+            <stop offset="0%" stop-color="#00cfff" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#060d1a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="1440" height="380" fill="url(#glow)"/>
+      </svg>
+      <div class="hero-inner">
+        <div class="hero-photo-wrap">
+          <img src="profile.jpg" alt="Chukwunalu Asuai Portrait">
+        </div>
+        <div class="hero-text">
+          <h1>Chukwunalu Asuai</h1>
+          <h2>Innovator in Hardware Security &amp; Formal Verification</h2>
+        </div>
+      </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="education.html">Education &amp; Research</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="professional.html">Professional Journey</a></li>
+            <li><a href="community.html">Community Impact</a></li>
+            <li><a href="awards.html">Awards &amp; Publications</a></li>
+            <li><a href="projects.html" class="active">Personal Projects</a></li>
+            <li><a href="skills.html">Skills &amp; Tools</a></li>
+            <li><a href="connect.html">Connect</a></li>
+        </ul>
+    </nav>
+    <main>
 
-  <section class="bg-gradient-to-r from-blue-500 to-teal-500 text-white py-16 text-center">
-    <h1 class="text-4xl font-bold">Asynchronous PCHB Circuit Verification</h1>
-    
-  </section>
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="projects.html">&larr; Back to Personal Projects</a>
+        </div>
 
-  <main class="container mx-auto px-4 py-8">
- 
+        <!-- Project Header -->
+        <section class="project-detail-header">
+            <div class="project-detail-title-row">
+                <div>
+                    <span class="project-badge project-badge-research" style="font-size:0.75rem;">Research</span>
+                    <h2 style="margin-top: 8px;">PCHB Trojan Detector</h2>
+                    <p class="project-detail-subtitle">A formal verification engine for detecting Hardware Trojans in asynchronous Pre-Charge Half Buffer (PCHB) circuits, targeting handshake violations, data leakage, and timing anomalies using Z3 SMT-based property checking.</p>
+                </div>
+                <div class="project-detail-tags">
+                    <span>Python</span>
+                    <span>Z3 SMT Solver</span>
+                    <span>Verilog</span>
+                    <span>Formal Verification</span>
+                    <span>PCHB / QDI Circuits</span>
+                    <span>Flask</span>
+                    <span>NULL Convention Logic</span>
+                </div>
+            </div>
+        </section>
 
-    <section id="report">
-      <h2 class="text-2xl font-bold mb-4">PCHB Verification Report</h2>
-      <h3 class="text-xl font-semibold">Handshake Compliance</h3>
-      <p class="success"><i class="fas fa-check-circle"></i> No violations detected</p>
+        <!-- What are PCHB Circuits -->
+        <section id="background">
+            <h2>Background</h2>
+            <p>Pre-Charge Half Buffer (PCHB) circuits are a class of Quasi-Delay Insensitive (QDI) asynchronous logic that operates without a global clock. Instead of relying on timing assumptions, PCHB circuits use a four-phase handshake protocol — request, acknowledge, data valid, return to NULL — to coordinate computation. This makes them inherently resilient to timing variations and electromagnetic interference, which is why they are used in safety-critical domains such as space systems, automotive electronics, and cryptographic hardware.</p>
+            <p>However, their asynchronous nature creates a unique attack surface. A Hardware Trojan inserted into a PCHB circuit can exploit illegal input combinations that arise during the NULL-to-DATA transition, activating a malicious payload under conditions so rare that standard simulation testing will never encounter them. This project builds a formal verification engine specifically designed to detect exactly that class of threat.</p>
+        </section>
 
-      <h3 class="text-xl font-semibold mt-4">Trojan Detections</h3>
-      <table class="w-full border-collapse">
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="border p-2 text-left">Name</th>
-            <th class="border p-2 text-left">Type</th>
-            <th class="border p-2 text-left">Severity</th>
-            <th class="border p-2 text-left">Model</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="hover:bg-gray-50">
-            <td class="border p-2">Early-Ack Trojan</td>
-            <td class="border p-2">handshake_violation</td>
-            <td class="border p-2"><span class="critical bg-red-500 text-white px-2 py-1 rounded">critical</span></td>
-            <td class="border p-2">[req = True, en = False, ack = False]</td>
-          </tr>
-          <tr class="hover:bg-gray-50">
-            <td class="border p-2">Data-Leak Trojan</td>
-            <td class="border p-2">information_leakage</td>
-            <td class="border p-2"><span class="high bg-orange-500 text-white px-2 py-1 rounded">high</span></td>
-            <td class="border p-2">[req = True, req_next = False, en = False, ack = False]</td>
-          </tr>
-        </tbody>
-      </table>
+        <!-- How It Works -->
+        <section id="how-it-works">
+            <h2>How It Works</h2>
+            <div class="pipeline">
+                <div class="pipeline-step">
+                    <div class="pipeline-num">01</div>
+                    <h3>Load Design</h3>
+                    <p>The verifier parses the Verilog RTL design and extracts all PCHB-specific signals — <code>req</code>, <code>ack</code>, <code>data</code>, <code>en</code>, and their next-state counterparts. Each signal is encoded as a Z3 Boolean variable, creating a formal model of the circuit's state space for exhaustive analysis.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">02</div>
+                    <h3>Verify Properties</h3>
+                    <p>Three classes of properties are checked in sequence. <strong>Handshake compliance</strong> enforces the four-phase protocol — request must precede acknowledge, acknowledge must clear before the next request. <strong>Data stability</strong> ensures no data bit changes while the enable signal is active. <strong>Trojan pattern matching</strong> converts JSON-defined Trojan signatures into Z3 constraints and checks for satisfiability.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">03</div>
+                    <h3>Report</h3>
+                    <p>Results are saved to a structured JSON report, then rendered into an HTML report via <code>generate_report.py</code>. Each detected Trojan is listed with its name, type, severity, and the Z3 counterexample model — the exact signal values that activate the malicious behaviour. A Flask API at <code>/verify</code> exposes the engine for programmatic use.</p>
+                </div>
+            </div>
+        </section>
 
-      <h3 class="text-xl font-semibold mt-4">Timing Violations</h3>
-      <p class="success"><i class="fas fa-check-circle"></i> No violations detected</p>
-    </section>
-  </main>
+        <!-- Trojan Types Detected -->
+        <section id="trojans">
+            <h2>Trojan Classes Detected</h2>
+            <p>The framework detected two Hardware Trojans in the PCHB adder benchmark. Both exploit conditions that are impossible under normal operation but become reachable under adversarial input combinations.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#9888;</div>
+                    <h3>Early-Ack Trojan</h3>
+                    <p><strong>Type:</strong> Handshake Violation &mdash; <strong>Severity:</strong> Critical</p>
+                    <p style="margin-top:10px;">Triggers when <code>req</code> is asserted but <code>en</code> is low, causing <code>ack</code> to fire prematurely. This breaks the four-phase handshake contract, corrupting downstream computations silently. Logic pattern: <code>req &amp;&amp; !en &amp;&amp; ack</code>.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128274;</div>
+                    <h3>Data-Leak Trojan</h3>
+                    <p><strong>Type:</strong> Information Leakage &mdash; <strong>Severity:</strong> High</p>
+                    <p style="margin-top:10px;">Activates when enable is low but two specific data bits (<code>data_0</code> and <code>data_1</code>) are simultaneously high — an illegal state in valid PCHB encoding. Under this condition, sensitive data propagates outside the circuit's intended boundary. Logic pattern: <code>!en &amp;&amp; data_0 &amp;&amp; data_1</code>.</p>
+                </div>
+            </div>
+        </section>
 
-  <footer class="bg-gray-800 text-white p-4 text-center">
-    <p>© 2025 Chukwunalu (J) Asuai</p>
-    <div class="mt-2">
-      <a href="johnpaulchukwunalu@gmail.com" class="mx-2"><i class="fas fa-envelope"></i></a>
-      <a href="https://linkedin.com/in/chukwunalu-asuai-a26b0616" class="mx-2"><i class="fab fa-linkedin"></i></a>
-    </div>
-  </footer>
+        <!-- Key Features -->
+        <section id="features">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#128260;</div>
+                    <h3>Four-Phase Handshake Verification</h3>
+                    <p>Formally encodes and checks all three rules of the PCHB handshake protocol using Z3 <code>Implies</code> constraints, guaranteeing correctness across every possible signal combination.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9989;</div>
+                    <h3>Data Stability Checking</h3>
+                    <p>Verifies that all 32 data bits remain stable during the evaluation phase by encoding bit-level stability constraints — catching any Trojan that introduces spurious transitions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128203;</div>
+                    <h3>JSON-Driven Trojan Patterns</h3>
+                    <p>Trojan signatures are defined in <code>pchb_properties.json</code> as named, typed, and severity-rated logic expressions. New patterns can be added without touching the verifier code — making the framework easily extensible.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128268;</div>
+                    <h3>Scoped Z3 Checking</h3>
+                    <p>Each Trojan pattern is checked in an isolated solver scope using <code>push()</code> and <code>pop()</code>, preventing constraint accumulation from interfering across checks — a critical correctness detail in formal verification.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128202;</div>
+                    <h3>Counterexample Models</h3>
+                    <p>When a Trojan is detected, Z3 returns the exact signal assignment that activates it. These counterexample models are captured and included in the HTML report, giving engineers a concrete starting point for analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128279;</div>
+                    <h3>REST API</h3>
+                    <p>A Flask endpoint at <code>POST /verify</code> runs the full verification pipeline and returns a JSON response with terminal output and the path to the generated HTML report — ready for CI/CD integration.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Highlight -->
+        <section id="code">
+            <h2>Core Detection Logic</h2>
+            <p>The snippet below shows how a Trojan pattern defined in JSON is converted into a Z3 constraint, checked for satisfiability, and recorded with its counterexample model.</p>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span>pchb_verifier.py &mdash; Trojan Pattern Detection</span>
+                </div>
+                <pre><code><span class="code-keyword">def</span> _detect_trojans(self, patterns: list):
+    <span class="code-keyword">for</span> pattern <span class="code-keyword">in</span> patterns:
+        constraint = self._pattern_to_z3(pattern[<span class="code-str">"logic"</span>])
+        <span class="code-keyword">if</span> constraint <span class="code-keyword">is not</span> None:
+            self.solver.push()          <span class="code-comment"># isolate this check</span>
+            self.solver.add(constraint)
+
+            <span class="code-keyword">if</span> self.solver.check() == sat:
+                model = self.solver.model()
+                self.results[<span class="code-str">"trojan_detections"</span>].append({
+                    <span class="code-str">"name"</span>:     pattern[<span class="code-str">"name"</span>],
+                    <span class="code-str">"type"</span>:     pattern[<span class="code-str">"type"</span>],
+                    <span class="code-str">"severity"</span>: pattern[<span class="code-str">"severity"</span>],
+                    <span class="code-str">"model"</span>:    str(model)   <span class="code-comment"># counterexample</span>
+                })
+            self.solver.pop()           <span class="code-comment"># restore solver state</span></code></pre>
+            </div>
+            <p>And the JSON pattern definition for the two Trojans found in the benchmark:</p>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span>pchb_properties.json &mdash; Trojan Signatures</span>
+                </div>
+                <pre><code>{
+  <span class="code-str">"trojan_patterns"</span>: [
+    {
+      <span class="code-str">"name"</span>:     <span class="code-str">"Early-Ack Trojan"</span>,
+      <span class="code-str">"type"</span>:     <span class="code-str">"handshake_violation"</span>,
+      <span class="code-str">"severity"</span>: <span class="code-str">"critical"</span>,
+      <span class="code-str">"logic"</span>:    <span class="code-str">"req &amp;&amp; !en &amp;&amp; ack"</span>
+    },
+    {
+      <span class="code-str">"name"</span>:     <span class="code-str">"Data-Leak Trojan"</span>,
+      <span class="code-str">"type"</span>:     <span class="code-str">"information_leakage"</span>,
+      <span class="code-str">"severity"</span>: <span class="code-str">"high"</span>,
+      <span class="code-str">"logic"</span>:    <span class="code-str">"!en &amp;&amp; data_0 &amp;&amp; data_1"</span>
+    }
+  ]
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section id="results">
+            <h2>Verification Results</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-number">3</div>
+                    <div class="result-label">Property Classes Verified</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">0</div>
+                    <div class="result-label">Handshake Violations</div>
+                </div>
+                <div class="result-card result-card-alert">
+                    <div class="result-number">2</div>
+                    <div class="result-label">Trojans Detected</div>
+                </div>
+                <div class="result-card result-card-alert">
+                    <div class="result-number">1</div>
+                    <div class="result-label">Critical Severity Finding</div>
+                </div>
+            </div>
+            <p style="margin-top: 20px;">The verifier confirmed full handshake protocol compliance and data stability in the baseline PCHB adder — then successfully identified both planted Trojans. The Early-Ack Trojan was flagged as critical, with Z3 producing the exact counterexample <code>[req = True, en = False, ack = False]</code> that exposes the vulnerability. The Data-Leak Trojan was flagged high, with the illegal dual-bit activation condition captured in the model.</p>
+        </section>
+
+        <div class="project-nav-footer">
+            <a href="projects.html" class="hero-btn-back">&larr; Back to Projects</a>
+        </div>
+
+    </main>
+    <footer role="contentinfo">
+        <p>&copy; 2025 Chukwunalu (J) Asuai</p>
+        <button id="back-to-top" aria-label="Back to top">&#8593;</button>
+    </footer>
+    <a href="https://linkedin.com/in/chukwunalu-asuai-a26b06167" target="_blank" class="lets-chat-btn" aria-label="Let's Chat on LinkedIn">Let's Chat</a>
 </body>
 </html>
