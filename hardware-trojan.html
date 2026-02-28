@@ -2,108 +2,254 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hardware Trojan Detector | Chukwunalu Asuai</title>
-    <link rel="stylesheet" href="../styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Chukwunalu Asuai">
+    <title>Hardware Trojan Detector | Chukwunalu (J) Asuai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <p>Chukwunalu (J) Asuai</p>
-        <p>--From Village Roots to Global Innovation--</p>
+    <!-- HERO -->
+    <header class="hero-header">
+      <svg class="hero-bg-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 380" preserveAspectRatio="xMidYMid slice">
+        <rect width="1440" height="380" fill="#060d1a"/>
+        <g stroke="#0a2a4a" stroke-width="1">
+          <line x1="0" y1="60" x2="1440" y2="60"/><line x1="0" y1="120" x2="1440" y2="120"/>
+          <line x1="0" y1="180" x2="1440" y2="180"/><line x1="0" y1="240" x2="1440" y2="240"/>
+          <line x1="0" y1="300" x2="1440" y2="300"/>
+          <line x1="120" y1="0" x2="120" y2="380"/><line x1="240" y1="0" x2="240" y2="380"/>
+          <line x1="360" y1="0" x2="360" y2="380"/><line x1="480" y1="0" x2="480" y2="380"/>
+          <line x1="600" y1="0" x2="600" y2="380"/><line x1="720" y1="0" x2="720" y2="380"/>
+          <line x1="840" y1="0" x2="840" y2="380"/><line x1="960" y1="0" x2="960" y2="380"/>
+          <line x1="1080" y1="0" x2="1080" y2="380"/><line x1="1200" y1="0" x2="1200" y2="380"/>
+          <line x1="1320" y1="0" x2="1320" y2="380"/>
+        </g>
+        <g stroke="#00cfff" stroke-width="1.5" fill="none" opacity="0.55">
+          <polyline points="800,60 860,60 860,120 960,120 960,60 1080,60"/>
+          <polyline points="960,120 960,180 1080,180 1080,240 1200,240"/>
+          <polyline points="1080,60 1080,0"/>
+          <polyline points="1200,240 1200,300 1320,300 1320,240"/>
+          <polyline points="840,180 840,240 720,240 720,300 600,300"/>
+          <polyline points="720,240 720,180 600,180 600,120 480,120"/>
+          <polyline points="480,120 360,120 360,60 240,60 240,120 120,120"/>
+          <polyline points="360,60 360,0"/>
+          <polyline points="1320,300 1320,360 1440,360"/>
+        </g>
+        <g fill="#00cfff" opacity="0.85">
+          <circle cx="860" cy="60" r="4"/><circle cx="960" cy="60" r="4"/>
+          <circle cx="960" cy="120" r="4"/><circle cx="1080" cy="60" r="4"/>
+          <circle cx="1080" cy="180" r="4"/><circle cx="1200" cy="240" r="4"/>
+          <circle cx="1320" cy="300" r="4"/><circle cx="720" cy="240" r="4"/>
+          <circle cx="600" cy="180" r="4"/><circle cx="480" cy="120" r="4"/>
+          <circle cx="360" cy="120" r="4"/><circle cx="360" cy="60" r="4"/>
+          <circle cx="240" cy="60" r="4"/>
+        </g>
+        <g fill="#0d2540" stroke="#00cfff" stroke-width="0.8" opacity="0.5">
+          <rect x="910" y="150" width="60" height="40" rx="2"/>
+          <rect x="1110" y="210" width="60" height="40" rx="2"/>
+          <rect x="290" y="88" width="40" height="34" rx="2"/>
+        </g>
+        <defs>
+          <radialGradient id="glow" cx="65%" cy="50%" r="35%">
+            <stop offset="0%" stop-color="#00cfff" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#060d1a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="1440" height="380" fill="url(#glow)"/>
+      </svg>
+      <div class="hero-inner">
+        <div class="hero-photo-wrap">
+          <img src="profile.jpg" alt="Chukwunalu Asuai Portrait">
+        </div>
+        <div class="hero-text">
+          <h1>Chukwunalu Asuai</h1>
+          <h2>Innovator in Hardware Security &amp; Formal Verification</h2>
+        </div>
+      </div>
     </header>
     <nav>
         <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../index.html#personal-projects">Projects</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="education.html">Education &amp; Research</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="professional.html">Professional Journey</a></li>
+            <li><a href="community.html">Community Impact</a></li>
+            <li><a href="awards.html">Awards &amp; Publications</a></li>
+            <li><a href="projects.html" class="active">Personal Projects</a></li>
+            <li><a href="skills.html">Skills &amp; Tools</a></li>
+            <li><a href="connect.html">Connect</a></li>
         </ul>
     </nav>
-
     <main>
-        <section id="project-overview">
-            <h2>Hardware Trojan Detection System</h2>
-            <div class="content-flex">
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="projects.html">&larr; Back to Personal Projects</a>
+        </div>
+
+        <!-- Project Header -->
+        <section class="project-detail-header">
+            <div class="project-detail-title-row">
                 <div>
-                    <p>This formal verification framework detects hardware Trojans in RTL designs using:</p>
-                    <ul>
-                        <li>Z3 Theorem Prover for formal verification</li>
-                        <li>Security property checking</li>
-                        <li>Pattern matching for known Trojan signatures</li>
-                    </ul>
-                    <a href="#live-demo" class="project-modal-btn">Try Live Demo</a>
+                    <span class="project-badge project-badge-research" style="font-size:0.75rem;">Research</span>
+                    <h2 style="margin-top: 8px;">Hardware Trojan Detector</h2>
+                    <p class="project-detail-subtitle">A formal verification framework for detecting malicious circuit modifications in RTL chip designs using SMT-based property checking.</p>
                 </div>
-                <img src="../images/trojan-detection-screenshot.png" alt="Trojan Detection Screenshot">
+                <div class="project-detail-tags">
+                    <span>Python</span>
+                    <span>Z3 SMT Solver</span>
+                    <span>Verilog</span>
+                    <span>Formal Verification</span>
+                    <span>Hardware Security</span>
+                    <span>Flask</span>
+                </div>
             </div>
         </section>
 
+        <!-- Overview -->
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>Hardware Trojans are malicious circuit components deliberately inserted into a chip design, often during fabrication or third-party IP integration. Once activated by a rare trigger condition, they can leak sensitive information, degrade performance, or cause catastrophic failures — all without leaving any trace visible to traditional testing methods.</p>
+            <p>This project implements a formal verification framework that analyses Register-Transfer Level (RTL) Verilog designs using the Z3 SMT solver to mathematically prove or disprove security properties. Rather than relying on simulation, which cannot exhaustively explore all input combinations, formal verification provides an ironclad guarantee: if a property holds, it holds for every possible input and circuit state. The framework was applied to an AES encryption core deliberately seeded with a Trojan — a rare-trigger key leakage payload — and successfully detected it.</p>
+        </section>
+
+        <!-- How It Works -->
         <section id="how-it-works">
             <h2>How It Works</h2>
-            <div class="tab-container">
-                <button class="tab-btn active" data-tab="tab-1">Verification</button>
-                <button class="tab-btn" data-tab="tab-2">Detection</button>
-                <button class="tab-btn" data-tab="tab-3">Reporting</button>
-            </div>
-            
-            <div id="tab-1" class="tab-content" style="display:block;">
-                <p>Checks designs against security properties like:</p>
-                <pre>ForAll([rare_signal1, rare_signal2], 
-    Implies(And(rare_signal1 == True, rare_signal2 == True),
-           ciphertext[7:0] != key[7:0]))</pre>
-            </div>
-            
-            <div id="tab-2" class="tab-content">
-                <p>Detects Trojan patterns including:</p>
-                <ul>
-                    <li>Rare trigger conditions</li>
-                    <li>Unauthorized state changes</li>
-                    <li>Information leakage</li>
-                </ul>
-            </div>
-            
-            <div id="tab-3" class="tab-content">
-                <p>Generates interactive reports:</p>
-                <iframe src="hardware-trojan-detector/security_report.html" 
-                        style="width:100%; height:400px; border:none;"></iframe>
+            <div class="pipeline">
+                <div class="pipeline-step">
+                    <div class="pipeline-num">01</div>
+                    <h3>Parse</h3>
+                    <p>The <code>VerilogParser</code> reads the RTL design file, extracts module ports, registers, wires, and always blocks. It simultaneously scans for known Trojan signature patterns — rare trigger conditions, key-conditional logic, and hidden state machines — flagging suspicious constructs before formal checking begins.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">02</div>
+                    <h3>Verify</h3>
+                    <p>Security properties are loaded from a specification file and evaluated against the parsed design using Z3. The verifier handles <code>ForAll</code>, <code>Exists</code>, and <code>Implies</code> quantified expressions. Dedicated Trojan-specific checks are then run — including rare signal activation analysis and key leakage detection — to catch payloads that general property checks may miss.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">03</div>
+                    <h3>Report</h3>
+                    <p>Results are serialised to a structured JSON report, then converted to a clean HTML security report including a Plotly bar chart visualising properties checked, violations found, and Trojan findings. A lightweight Flask API endpoint allows the verifier to be called programmatically, making it easy to integrate into a CI/CD pipeline for automated hardware security checks.</p>
+                </div>
             </div>
         </section>
 
-        <section id="live-demo" class="modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <h3>Try the Trojan Detector</h3>
-                <div class="tab-container">
-                    <button class="tab-btn active" data-tab="demo-tab-1">Run Verification</button>
-                    <button class="tab-btn" data-tab="demo-tab-2">View Sample Results</button>
+        <!-- Key Features -->
+        <section id="features">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#128269;</div>
+                    <h3>Pattern Pre-Scanning</h3>
+                    <p>Before formal verification, the parser pre-scans for known Trojan signatures using regex pattern matching — catching rare-condition triggers, key leakage assignments, and hidden state logic early.</p>
                 </div>
-                
-                <div id="demo-tab-1" class="tab-content" style="display:block;">
-                    <pre id="demo-output">Ready to verify designs...</pre>
-                    <button onclick="runVerification()">Check AES Core</button>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9989;</div>
+                    <h3>SMT-Based Property Checking</h3>
+                    <p>Security properties written as logical expressions are encoded into Z3 constraints. The solver proves each property exhaustively across all possible circuit states — not just sampled inputs.</p>
                 </div>
-                
-                <div id="demo-tab-2" class="tab-content">
-                    <iframe src="hardware-trojan-detector/security_report.html" 
-                            style="width:100%; height:500px; border:none;"></iframe>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128274;</div>
+                    <h3>Key Leakage Detection</h3>
+                    <p>A dedicated check tests whether any trigger condition causes key material to appear in ciphertext output — the exact class of Trojan found in the AES benchmark, where <code>ciphertext[7:0] &lt;= key[7:0]</code> was activated by a rare dual-signal trigger.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128202;</div>
+                    <h3>Automated HTML Reporting</h3>
+                    <p>Each verification run produces a structured HTML report with a Plotly visualisation of results — properties checked, violations found, and Trojan findings — making results accessible without reading raw JSON.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128279;</div>
+                    <h3>REST API Integration</h3>
+                    <p>A Flask API exposes the verifier as a <code>/verify/&lt;design&gt;</code> endpoint, enabling integration into automated design flows and CI/CD pipelines for continuous hardware security monitoring.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9889;</div>
+                    <h3>Side-Channel Property Checks</h3>
+                    <p>Beyond Trojan detection, the framework checks for constant-time execution and secret-dependent branching — two key properties required to prevent timing and power side-channel attacks.</p>
                 </div>
             </div>
         </section>
+
+        <!-- Code Highlight -->
+        <section id="code">
+            <h2>Core Detection Logic</h2>
+            <p>The snippet below shows the dedicated Trojan detection method — the check that caught the key leakage payload in the AES benchmark design.</p>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span>formal_verifier.py &mdash; Key Leakage Check</span>
+                </div>
+                <pre><code><span class="code-comment"># Check 2: Key leakage via rare trigger condition</span>
+<span class="code-keyword">if</span> <span class="code-str">'ciphertext'</span> <span class="code-keyword">in</span> z3_vars <span class="code-keyword">and</span> <span class="code-str">'key'</span> <span class="code-keyword">in</span> z3_vars:
+    key_leak = z3_vars[<span class="code-str">'ciphertext'</span>][<span class="code-num">7</span>:<span class="code-num">0</span>] == z3_vars[<span class="code-str">'key'</span>][<span class="code-num">7</span>:<span class="code-num">0</span>]
+    self.solver.add(key_leak)
+
+    <span class="code-keyword">if</span> self.solver.check() == sat:
+        model = self.solver.model()
+        self.results[<span class="code-str">'trojan_findings'</span>].append({
+            <span class="code-str">'type'</span>: <span class="code-str">'key_leakage'</span>,
+            <span class="code-str">'severity'</span>: <span class="code-str">'critical'</span>,
+            <span class="code-str">'description'</span>: <span class="code-str">'Key material leaked to ciphertext'</span>,
+            <span class="code-str">'bits'</span>: <span class="code-str">'ciphertext[7:0]'</span>,
+        })
+        self.results[<span class="code-str">'violations_found'</span>] += <span class="code-num">1</span>
+        <span class="code-keyword">print</span>(<span class="code-str">"&#128680; CRITICAL: Key leakage detected"</span>)
+    self.solver.reset()</code></pre>
+            </div>
+            <p>The Verilog Trojan it catches — embedded inside the AES core — looks like this:</p>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span>aes_core.v &mdash; Trojan Payload</span>
+                </div>
+                <pre><code><span class="code-comment">// Trojan trigger: activates only when both rare signals are high</span>
+wire trojan_trigger = rare_signal1 &amp; rare_signal2;
+
+<span class="code-comment">// Trojan payload: leaks the first byte of the key into ciphertext</span>
+<span class="code-keyword">if</span> (trojan_trigger) <span class="code-keyword">begin</span>
+    ciphertext[<span class="code-num">7</span>:<span class="code-num">0</span>] &lt;= key[<span class="code-num">7</span>:<span class="code-num">0</span>];   <span class="code-comment">// leak key byte</span>
+    ciphertext[<span class="code-num">127</span>:<span class="code-num">8</span>] &lt;= <span class="code-num">120</span>'b0;       <span class="code-comment">// clear other bits</span>
+<span class="code-keyword">end</span></code></pre>
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section id="results">
+            <h2>Verification Results</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-number">10</div>
+                    <div class="result-label">Security Properties Checked</div>
+                </div>
+                <div class="result-card result-card-alert">
+                    <div class="result-number">2</div>
+                    <div class="result-label">Violations Found</div>
+                </div>
+                <div class="result-card result-card-alert">
+                    <div class="result-number">2</div>
+                    <div class="result-label">Trojan Findings (Critical)</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">3</div>
+                    <div class="result-label">Trojan Classes Detected</div>
+                </div>
+            </div>
+            <p style="margin-top: 20px;">The framework successfully identified both the rare-trigger activation condition and the key leakage payload in the AES benchmark. Properties covering core functionality, Hardware Trojan checks, side-channel protection, and privilege escalation were all evaluated. The two critical violations — rare signal trigger and key byte leakage — map directly to the deliberately inserted Trojan in <code>aes_core.v</code>.</p>
+        </section>
+
+        <div class="project-nav-footer">
+            <a href="projects.html" class="hero-btn-back">&larr; Back to Projects</a>
+        </div>
+
     </main>
-
-    <script src="../script.js"></script>
-    <script>
-        // Simple demo simulation
-        function runVerification() {
-            const output = document.getElementById('demo-output');
-            output.innerHTML = "🔍 Loading design...\n";
-            
-            setTimeout(() => {
-                output.innerHTML += "✅ Found 14 signals\n";
-                output.innerHTML += "⚠️  Detected rare trigger condition\n";
-                output.innerHTML += "🚨 CRITICAL: Key leakage detected\n\n";
-                output.innerHTML += "📊 Verification complete\n";
-                output.innerHTML += "   Properties checked: 8\n";
-                output.innerHTML += "   Violations found: 2\n";
-                output.innerHTML += '<a href="hardware-trojan-detector/security_report.html" target="_blank">View Full Report</a>';
-            }, 1500);
-        }
-    </script>
+    <footer role="contentinfo">
+        <p>&copy; 2025 Chukwunalu (J) Asuai</p>
+        <button id="back-to-top" aria-label="Back to top">&#8593;</button>
+    </footer>
+    <a href="https://linkedin.com/in/chukwunalu-asuai-a26b06167" target="_blank" class="lets-chat-btn" aria-label="Let's Chat on LinkedIn">Let's Chat</a>
 </body>
 </html>
