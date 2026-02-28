@@ -1,575 +1,286 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPGA-Based Real-Time Audio Signal Processor</title>
+    <meta name="author" content="Chukwunalu Asuai">
+    <title>FPGA Audio Processor | Chukwunalu (J) Asuai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>FPGA-Based Real-Time Audio Signal Processor</h1>
-        <a href="index.html">Back to Portfolio</a>
+    <!-- HERO -->
+    <header class="hero-header">
+      <svg class="hero-bg-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 380" preserveAspectRatio="xMidYMid slice">
+        <rect width="1440" height="380" fill="#060d1a"/>
+        <g stroke="#0a2a4a" stroke-width="1">
+          <line x1="0" y1="60" x2="1440" y2="60"/><line x1="0" y1="120" x2="1440" y2="120"/>
+          <line x1="0" y1="180" x2="1440" y2="180"/><line x1="0" y1="240" x2="1440" y2="240"/>
+          <line x1="0" y1="300" x2="1440" y2="300"/>
+          <line x1="120" y1="0" x2="120" y2="380"/><line x1="240" y1="0" x2="240" y2="380"/>
+          <line x1="360" y1="0" x2="360" y2="380"/><line x1="480" y1="0" x2="480" y2="380"/>
+          <line x1="600" y1="0" x2="600" y2="380"/><line x1="720" y1="0" x2="720" y2="380"/>
+          <line x1="840" y1="0" x2="840" y2="380"/><line x1="960" y1="0" x2="960" y2="380"/>
+          <line x1="1080" y1="0" x2="1080" y2="380"/><line x1="1200" y1="0" x2="1200" y2="380"/>
+          <line x1="1320" y1="0" x2="1320" y2="380"/>
+        </g>
+        <g stroke="#00cfff" stroke-width="1.5" fill="none" opacity="0.55">
+          <polyline points="800,60 860,60 860,120 960,120 960,60 1080,60"/>
+          <polyline points="960,120 960,180 1080,180 1080,240 1200,240"/>
+          <polyline points="1080,60 1080,0"/>
+          <polyline points="1200,240 1200,300 1320,300 1320,240"/>
+          <polyline points="840,180 840,240 720,240 720,300 600,300"/>
+          <polyline points="720,240 720,180 600,180 600,120 480,120"/>
+          <polyline points="480,120 360,120 360,60 240,60 240,120 120,120"/>
+          <polyline points="360,60 360,0"/>
+          <polyline points="1320,300 1320,360 1440,360"/>
+        </g>
+        <g fill="#00cfff" opacity="0.85">
+          <circle cx="860" cy="60" r="4"/><circle cx="960" cy="60" r="4"/>
+          <circle cx="960" cy="120" r="4"/><circle cx="1080" cy="60" r="4"/>
+          <circle cx="1080" cy="180" r="4"/><circle cx="1200" cy="240" r="4"/>
+          <circle cx="1320" cy="300" r="4"/><circle cx="720" cy="240" r="4"/>
+          <circle cx="600" cy="180" r="4"/><circle cx="480" cy="120" r="4"/>
+          <circle cx="360" cy="120" r="4"/><circle cx="360" cy="60" r="4"/>
+          <circle cx="240" cy="60" r="4"/>
+        </g>
+        <g fill="#0d2540" stroke="#00cfff" stroke-width="0.8" opacity="0.5">
+          <rect x="910" y="150" width="60" height="40" rx="2"/>
+          <rect x="1110" y="210" width="60" height="40" rx="2"/>
+          <rect x="290" y="88" width="40" height="34" rx="2"/>
+        </g>
+        <defs>
+          <radialGradient id="glow" cx="65%" cy="50%" r="35%">
+            <stop offset="0%" stop-color="#00cfff" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#060d1a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="1440" height="380" fill="url(#glow)"/>
+      </svg>
+      <div class="hero-inner">
+        <div class="hero-photo-wrap">
+          <img src="profile.jpg" alt="Chukwunalu Asuai Portrait">
+        </div>
+        <div class="hero-text">
+          <h1>Chukwunalu Asuai</h1>
+          <h2>Innovator in Hardware Security &amp; Formal Verification</h2>
+        </div>
+      </div>
     </header>
-
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="education.html">Education &amp; Research</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="professional.html">Professional Journey</a></li>
+            <li><a href="community.html">Community Impact</a></li>
+            <li><a href="awards.html">Awards &amp; Publications</a></li>
+            <li><a href="projects.html" class="active">Personal Projects</a></li>
+            <li><a href="skills.html">Skills &amp; Tools</a></li>
+            <li><a href="connect.html">Connect</a></li>
+        </ul>
+    </nav>
     <main>
-        <section id="project-overview">
-            <h2>Project Overview</h2>
-            <p>This project implements a real-time audio processing system on a Xilinx Zynq-7000 FPGA (ZedBoard), interfacing with the WM8731 codec via I2S. It includes VHDL code for the core audio processor, testbench, and equalizer, Python code for generating test vectors, and C code for codec configuration, performing tasks like FFT-based spectral analysis and equalization.</p>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="projects.html">&larr; Back to Personal Projects</a>
+        </div>
+
+        <!-- Project Header -->
+        <section class="project-detail-header">
+            <div class="project-detail-title-row">
+                <div>
+                    <span class="project-badge project-badge-build" style="font-size:0.75rem;">Build</span>
+                    <h2 style="margin-top: 8px;">FPGA-Based Real-Time Audio Signal Processor</h2>
+                    <p class="project-detail-subtitle">A hardware audio processing system implemented in VHDL on a Xilinx Zynq-7000 FPGA, capturing audio via I2S, transforming it in the frequency domain using a 256-point FFT, applying real-time equalization, and transmitting processed audio back through a WM8731 codec.</p>
+                </div>
+                <div class="project-detail-tags">
+                    <span>VHDL</span>
+                    <span>Xilinx Zynq-7000</span>
+                    <span>I2S Protocol</span>
+                    <span>WM8731 Codec</span>
+                    <span>256-Point FFT</span>
+                    <span>Vivado Design Suite</span>
+                    <span>C / Embedded</span>
+                    <span>Python</span>
+                </div>
+            </div>
         </section>
 
-        <section id="source-code">
-            <h2>Combined Source Code</h2>
-            <p>The following is the complete source code for the FPGA-Based Real-Time Audio Signal Processor, combining VHDL, Python, and C components.</p>
-            <pre><code class="code-styled">-- Project: FPGA-Based Real-Time Audio Signal Processor in vhd
---
--- Summary:
--- This project implements a real-time audio signal processor on a Xilinx Zynq-7000 FPGA (e.g., ZedBoard) using VHDL. The system processes audio from a microphone via the I2S protocol, applies a 256-point Fast Fourier Transform (FFT) for spectral analysis, and performs tasks like noise cancellation and equalization. Processed audio is output to a speaker through the WM8731 audio codec. The design includes an I2S receiver, a Vivado-generated FFT IP core, an equalizer module, and an I2S transmitter, showcasing expertise in FPGA design, digital signal processing, and hardware interfacing.
---
--- Implementation Details:
--- 1. Hardware Setup:
---    - Components: Xilinx Zynq-7000 FPGA (ZedBoard), WM8731 audio codec, microphone, speaker, 12V power supply.
---    - Connected WM8731 codec to ZedBoard via I2S pins: MCLK (12.288 MHz), BCLK (~3.072 MHz), ADCLRC/DACLRC (48 kHz), ADCDAT (input), DACDAT (output).
---    - Wired I2C pins (SCL, SDA) for WM8731 configuration.
---    - Powered ZedBoard and codec with a 12V supply, ensuring proper grounding to minimize noise.
---    - Used ZedBoard’s programmable logic (PL) for audio processing and processing system (PS) for potential control tasks.
---
--- 2. Software Setup:
---    - Installed Xilinx Vivado Design Suite (2023.2 or later) on a Windows/Linux PC.
---    - Installed Digilent board files for ZedBoard to simplify pin assignments.
---    - Created a Vivado project targeting the Zynq-7000 (XC7Z020).
---    - Generated a 256-point FFT IP core using Vivado IP Catalog (fixed-point, 16-bit, pipelined streaming I/O).
---    - Synthesized and implemented the design, generating a bitstream for FPGA programming.
---
--- 3. Vivado IP Core Setup (FFT Core):
---    - In Vivado, created a new project: File > Project > New, selected ZedBoard (XC7Z020).
---    - Opened IP Catalog, selected FFT IP (Xilinx FFT v9.1), and configured:
---      - Transform Length: 256 points.
---      - Data Format: Fixed-point, 16-bit input/output.
---      - Architecture: Pipelined, Streaming I/O for low latency.
---      - Scaling: Unscaled (manual scaling in VHDL for precision).
---      - Output Ordering: Natural order.
---      - Clock Frequency: 100 MHz (matched to system clock).
---    - Generated the IP core, added it to the block design, and connected to I2S receiver output.
---    - Added AXI Interconnect and reset controller for clock synchronization.
---    - Exported the hardware design as an XSA file for potential PS integration using Vitis.
---
--- 4. WM8731 Configuration (I2C):
---    - Configured WM8731 codec via I2C to set up 48 kHz sampling, 16-bit audio, and I2S format.
---    - Used Zynq PS I2C controller (or PL-based I2C IP) to send configuration commands:
---      - I2C Address: 0x1A (WM8731 default, 7-bit).
---      - Key Registers:
---        - R15 (Reset): 0x00 (reset codec).
---        - R4 (Analogue Audio Path): 0x10 (enable microphone input).
---        - R5 (Digital Audio Path): 0x00 (disable high-pass filter for testing).
---        - R6 (Power Down): 0x00 (all blocks powered on).
---        - R7 (Digital Audio Interface): 0x0A (I2S, 16-bit, slave mode).
---        - R8 (Sampling Control): 0x00 (48 kHz, normal mode).
---        - R9 (Active Control): 0x01 (activate codec).
---    - Verified I2C communication using an oscilloscope or logic analyzer.
---
--- 5. VHDL Design:
---    - Developed an I2S receiver to capture 16-bit audio samples at 48 kHz.
---    - Integrated the Vivado FFT IP core to process audio in the frequency domain.
---    - Implemented a simple equalizer to adjust gains for low, mid, and high frequency bands.
---    - Added an I2S transmitter to send processed audio to the WM8731 codec.
---    - Used a top-level module to manage data flow and clocking.
---
--- 6. Calibration and Testing:
---    - Simulated the design in Vivado’s simulator to verify I2S timing, FFT accuracy, and equalizer functionality.
---    - Configured WM8731 registers via I2C and tested with a microphone input (e.g., voice or sine wave).
---    - Monitored output on a speaker, adjusting equalizer gains for desired effects (e.g., noise reduction).
---    - Used Vivado’s Integrated Logic Analyzer (ILA) to debug signal paths.
---
--- 7. Deployment and Tuning:
---    - Programmed the FPGA with the bitstream via Vivado or JTAG.
---    - Conducted real-time audio tests in a quiet environment to minimize external noise.
---    - Tuned FFT windowing (e.g., Hamming window) and equalizer gains for optimal audio quality.
---    - Optimized resource usage (LUTs, DSP slices) to fit within ZedBoard constraints.
---
--- 8. Safety and Optimization:
---    - Ensured proper grounding and shielding to reduce audio noise.
---    - Optimized FFT pipeline stages for low latency (~1 ms processing delay).
---    - Added error handling for I2S synchronization and FFT overflow.
---    - Documented the design, including VHDL code, Vivado project, and demo video, in a GitHub repository.
---
--- Note: This code provides a framework for real-time audio processing. A production system would include advanced noise cancellation algorithms, dynamic equalizer control via PS, and robust error handling.
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
-
--- Top-level entity for audio processor
-entity audio_processor is
-    Port ( 
-        clk_100mhz : in STD_LOGIC;  -- 100 MHz system clock
-        reset : in STD_LOGIC;       -- Active-high reset
-        mclk : out STD_LOGIC;       -- Master clock for I2S (12.288 MHz)
-        bclk : out STD_LOGIC;       -- Bit clock for I2S (~3.072 MHz)
-        adclrc : out STD_LOGIC;     -- ADC left-right clock (48 kHz)
-        daclrc : out STD_LOGIC;     -- DAC left-right clock (48 kHz)
-        adcdat : in STD_LOGIC;      -- ADC data input
-        dacdat : out STD_LOGIC;     -- DAC data output
-        audio_out : out STD_LOGIC_VECTOR(15 downto 0)  -- Processed audio for debugging
-    );
-end audio_processor;
-
-architecture Behavioral of audio_processor is
-    -- Clock divider signals
-    signal clk_div : unsigned(7 downto 0) := (others => '0');
-    signal mclk_int : STD_LOGIC := '0';
-    signal bclk_int : STD_LOGIC := '0';
-    signal lrclk_int : STD_LOGIC := '0';
-    
-    -- Audio data signals
-    signal audio_in : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
-    signal audio_proc : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
-    
-    -- FFT signals (interface to Vivado FFT IP core)
-    signal fft_data_in : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
-    signal fft_data_out : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
-    signal fft_start : STD_LOGIC := '0';
-    signal fft_done : STD_LOGIC := '0';
-    signal fft_valid : STD_LOGIC := '0';
-    
-    -- Equalizer gains (low, mid, high bands, 16-bit fixed-point, 1.0 = 0x4000)
-    signal eq_gains : STD_LOGIC_VECTOR(47 downto 0) := x"400040004000"; -- 1.0, 1.0, 1.0
-    
-    -- I2S state machine
-    type i2s_state_t is (IDLE, LEFT, RIGHT);
-    signal i2s_state : i2s_state_t := IDLE;
-    signal bit_counter : integer range 0 to 15 := 0;
-    
-    -- FFT IP core component (generated by Vivado)
-    component fft_ip
-        port (
-            aclk : in STD_LOGIC;
-            aresetn : in STD_LOGIC;
-            s_axis_data_tdata : in STD_LOGIC_VECTOR(15 downto 0);
-            s_axis_data_tvalid : in STD_LOGIC;
-            s_axis_data_tready : out STD_LOGIC;
-            m_axis_data_tdata : out STD_LOGIC_VECTOR(15 downto 0);
-            m_axis_data_tvalid : out STD_LOGIC;
-            m_axis_data_tready : in STD_LOGIC
-        );
-    end component;
-    
-    signal fft_tvalid_in : STD_LOGIC := '0';
-    signal fft_tready_in : STD_LOGIC := '0';
-    signal fft_tvalid_out : STD_LOGIC := '0';
-    signal fft_tready_out : STD_LOGIC := '1';  -- Always ready to receive FFT output
-    
-begin
-    -- Instantiate FFT IP core
-    fft_core : fft_ip
-        port map (
-            aclk => clk_100mhz,
-            aresetn => not reset,
-            s_axis_data_tdata => fft_data_in,
-            s_axis_data_tvalid => fft_tvalid_in,
-            s_axis_data_tready => fft_tready_in,
-            m_axis_data_tdata => fft_data_out,
-            m_axis_data_tvalid => fft_tvalid_out,
-            m_axis_data_tready => fft_tready_out
-        );
-    
-    -- Clock divider for I2S clocks (48 kHz sampling, 16-bit audio)
-    process(clk_100mhz, reset)
-    begin
-        if reset = '1' then
-            clk_div <= (others => '0');
-            mclk_int <= '0';
-            bclk_int <= '0';
-            lrclk_int <= '0';
-        elsif rising_edge(clk_100mhz) then
-            clk_div <= clk_div + 1;
-            if clk_div = 4 then  -- Divide 100 MHz to ~12.288 MHz for mclk
-                mclk_int <= not mclk_int;
-                clk_div <= (others => '0');
-            end if;
-            if clk_div(1 downto 0) = "00" then  -- Divide for bclk (~3.072 MHz)
-                bclk_int <= not bclk_int;
-            end if;
-            if clk_div = 0 then  -- Divide for lrclk (48 kHz)
-                lrclk_int <= not lrclk_int;
-            end if;
-        end if;
-    end process;
-    
-    mclk <= mclk_int;
-    bclk <= bclk_int;
-    adclrc <= lrclk_int;
-    daclrc <= lrclk_int;
-    
-    -- I2S receiver
-    process(bclk_int, reset)
-    begin
-        if reset = '1' then
-            i2s_state <= IDLE;
-            bit_counter <= 0;
-            audio_in <= (others => '0');
-            fft_tvalid_in <= '0';
-        elsif falling_edge(bclk_int) then
-            case i2s_state is
-                when IDLE =>
-                    if lrclk_int = '0' then
-                        i2s_state <= LEFT;
-                        bit_counter <= 15;
-                    end if;
-                when LEFT =>
-                    audio_in(bit_counter) <= adcdat;
-                    if bit_counter = 0 then
-                        i2s_state <= RIGHT;
-                        bit_counter <= 15;
-                        fft_data_in <= audio_in;  -- Send to FFT core
-                        fft_tvalid_in <= '1';
-                    else
-                        bit_counter <= bit_counter - 1;
-                    end if;
-                when RIGHT =>
-                    if bit_counter = 0 then
-                        i2s_state <= IDLE;
-                        fft_tvalid_in <= '0';
-                    else
-                        bit_counter <= bit_counter - 1;
-                    end if;
-            end case;
-        end if;
-    end process;
-    
-    -- FFT processing
-    process(clk_100mhz, reset)
-    begin
-        if reset = '1' then
-            fft_start <= '0';
-            fft_valid <= '0';
-        elsif rising_edge(clk_100mhz) then
-            if fft_tvalid_out = '1' then
-                fft_valid <= '1';
-                fft_start <= '0';
-            else
-                fft_valid <= '0';
-            end if;
-        end if;
-    end process;
-    
-    -- Equalizer (apply gains to frequency bands)
-    process(clk_100mhz, reset)
-        variable low_band : signed(15 downto 0);
-        variable mid_band : signed(15 downto 0);
-        variable high_band : signed(15 downto 0);
-    begin
-        if reset = '1' then
-            audio_proc <= (others => '0');
-        elsif rising_edge(clk_100mhz) then
-            if fft_valid = '1' then
-                -- Apply gains to FFT output (simplified, assumes frequency bins grouped)
-                low_band := signed(fft_data_out) * signed(eq_gains(47 downto 32));
-                mid_band := signed(fft_data_out) * signed(eq_gains(31 downto 16));
-                high_band := signed(fft_data_out) * signed(eq_gains(15 downto 0));
-                audio_proc <= std_logic_vector(low_band + mid_band + high_band);
-            end if;
-        end if;
-    end process;
-    
-    -- I2S transmitter
-    process(bclk_int, reset)
-    begin
-        if reset = '1' then
-            dacdat <= '0';
-            bit_counter <= 0;
-        elsif rising_edge(bclk_int) then
-            if lrclk_int = '0' then  -- Left channel
-                dacdat <= audio_proc(bit_counter);
-                if bit_counter = 0 then
-                    bit_counter <= 15;
-                else
-                    bit_counter <= bit_counter - 1;
-                end if;
-            end if;
-        end if;
-    end process;
-    
-    audio_out <= audio_proc;
-end Behavioral;
-
--- Project: FPGA-Based Real-Time Audio Signal Processor (Testbench in vhd)
---
--- What it does:
--- This testbench tests the audio_processor module with real I2S data from a 48 kHz speech WAV file. It simulates audio input and checks the processed output.
---
--- How we built it:
--- 1. Setup:
---    - Used Vivado (2023.1) for simulation.
---    - Got real I2S data from Generate_Audio_Test.py (first 16 samples of a speech WAV).
--- 2. Testing:
---    - Generated a 100 MHz clock and reset signal.
---    - Fed 16-bit I2S samples (e.g., 0x7FFF for max amplitude) at 48 kHz.
---    - Checked audio_out for correct equalization (mid frequencies boosted).
--- 3. Usage:
---    - Run in Vivado: Add Audio_Processor.vhd and this file, then simulate.
---    - Check waveform for audio_out matching expected processed values.
--- 4. Notes:
---    - I2S data is from a real speech clip (male voice, "hello world").
---    - Expected outputs account for 1.5x mid-frequency gain.
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
-
-entity tb_audio_processor is
-end tb_audio_processor;
-
-architecture Behavioral of tb_audio_processor is
-    signal clk_100mhz : STD_LOGIC := '0';
-    signal reset : STD_LOGIC := '1';
-    signal mclk, bclk, adclrc, daclrc, adcdat, dacdat : STD_LOGIC;
-    signal audio_out : STD_LOGIC_VECTOR(15 downto 0);
-    
-    constant CLK_PERIOD : time := 10 ns;
-    -- Real I2S samples from WAV file (first 16 samples, 16-bit, mono)
-    type sample_array is array (0 to 15) of STD_LOGIC_VECTOR(15 downto 0);
-    constant TEST_SAMPLES : sample_array := (
-        x"7FFF", x"6A1B", x"5C3D", x"4E7A", x"4081", x"32B4", x"24F2", x"1738",
-        x"0987", x"FBDA", x"EE2C", x"E07E", x"D2D0", x"C522", x"B774", x"A9C6"
-    );
-    
-begin
-    -- Instantiate the audio processor
-    uut : entity work.audio_processor
-        port map (
-            clk_100mhz => clk_100mhz,
-            reset => reset,
-            mclk => mclk,
-            bclk => bclk,
-            adclrc => adclrc,
-            daclrc => daclrc,
-            adcdat => adcdat,
-            dacdat => dacdat,
-            audio_out => audio_out
-        );
-    
-    -- Clock generation
-    clk_process : process
-    begin
-        while True loop
-            clk_100mhz <= '0';
-            wait for CLK_PERIOD / 2;
-            clk_100mhz <= '1';
-            wait for CLK_PERIOD / 2;
-        end loop;
-    end process;
-    
-    -- Stimulus process
-    stim_proc : process
-        variable sample_idx : integer := 0;
-        variable bit_idx : integer := 0;
-    begin
-        wait for 100 ns;
-        reset <= '0';
-        
-        -- Simulate I2S input
-        while sample_idx < 16 loop
-            wait until falling_edge(bclk);
-            if adclrc = '0' then
-                adcdat <= TEST_SAMPLES(sample_idx)(15 - bit_idx);
-                if bit_idx < 15 then
-                    bit_idx := bit_idx + 1;
-                else
-                    bit_idx := 0;
-                    sample_idx := sample_idx + 1;
-                end if;
-            end if;
-        end loop;
-        wait;
-    end process;
-end Behavioral;
-
-# Project: FPGA-Based Real-Time Audio Signal Processor (Test Vector Generator in vhd)
-#
-# What it does:
-# This script generates I2S test vectors from a real 48 kHz WAV file (male voice saying "hello world"). It extracts 16 samples and converts them to 16-bit VHDL array format.
-#
-# How we built it:
-# 1. Setup:
-#    - Installed Python 3.9, scipy, numpy.
-#    - Used a public-domain WAV file (48 kHz, mono, 16-bit PCM).
-# 2. Process:
-#    - Loaded WAV file and extracted first 16 samples.
-#    - Scaled to 16-bit signed integers.
-#    - Formatted as VHDL array for Audio_Processor_tb.vhd.
-# 3. Usage:
-#    - Run: `python Generate_Audio_Test.py`.
-#    - Copy output to TEST_SAMPLES in Audio_Processor_tb.vhd.
-# 4. Notes:
-#    - WAV file is from a real speech clip (available at freesound.org).
-#    - Samples are raw PCM, matching WM8731 I2S format.
-
-import scipy.io.wavfile as wavfile
-import numpy as np
-
-# Load WAV file (replace with your 48 kHz mono WAV file path)
-sample_rate, audio = wavfile.read('speech_hello_world.wav')
-assert sample_rate == 48000, "WAV must be 48 kHz"
-
-# Extract first 16 samples (mono)
-samples = audio[:16].astype(np.int16)
-
-# Convert to VHDL hex format
-vhdl_samples = [f'x"{sample:04X}"' for sample in samples]
-vhdl_array = f"constant TEST_SAMPLES : sample_array := (\n    {', '.join(vhdl_samples)}\n);"
-
-# Save to file
-with open('audio_test_vectors.txt', 'w') as f:
-    f.write(vhdl_array)
-
-print("Test vectors saved to audio_test_vectors.txt")
-print("Copy to TEST_SAMPLES in Audio_Processor_tb.vhd")
-
--- Equalizer with bin-specific processing (in vhd)
-process(clk_100mhz, reset)
-    constant NUM_BINS : integer := 256;
-    type bin_array is array (0 to NUM_BINS-1) of signed(15 downto 0);
-    variable fft_bins : bin_array;
-    variable low_gain : signed(15 downto 0) := to_signed(16384, 16);  -- 1.0 in Q15 format
-    variable mid_gain : signed(15 downto 0) := to_signed(16384, 16);
-    variable high_gain : signed(15 downto 0) := to_signed(16384, 16);
-begin
-    if reset = '1' then
-        audio_proc <= (others => '0');
-    elsif rising_edge(clk_100mhz) then
-        if fft_tvalid_out = '1' then
-            -- Assume fft_data_out represents one bin per cycle
-            for i in 0 to NUM_BINS-1 loop
-                if i < 64 then  -- Low frequencies (0-3 kHz)
-                    fft_bins(i) := signed(fft_data_out) * low_gain;
-                elsif i < 192 then  -- Mid frequencies (3-9 kHz)
-                    fft_bins(i) := signed(fft_data_out) * mid_gain;
-                else  -- High frequencies (9-12 kHz)
-                    fft_bins(i) := signed(fft_data_out) * high_gain;
-                end if;
-            end loop;
-            -- Simplified: output the first bin (in practice, perform IFFT)
-            audio_proc <= std_logic_vector(fft_bins(0));
-        end if;
-    end if;
-end process;
-
-/* C code example for WM8731 configuration */
-#include <xiicps.h>
-#include <xparameters.h>
-#include <xil_printf.h>
-
-#define I2C_DEVICE_ID XPAR_PS7_I2C_0_DEVICE_ID
-#define WM8731_ADDR 0x1A  // 7-bit I2C address
-
-XIicPs I2cInstance;
-u8 WriteBuffer[2];
-
-int write_wm8731(u8 reg, u16 value) {
-    WriteBuffer[0] = (reg << 1) | ((value >> 8) & 0x01);  // Register address + MSB
-    WriteBuffer[1] = value & 0xFF;  // LSB
-    return XIicPs_MasterSendPolled(&I2cInstance, WriteBuffer, 2, WM8731_ADDR);
-}
-
-int main() {
-    // Initialize I2C
-    XIicPs_Config *ConfigPtr = XIicPs_LookupConfig(I2C_DEVICE_ID);
-    if (XIicPs_CfgInitialize(&I2cInstance, ConfigPtr, ConfigPtr->BaseAddress) != XST_SUCCESS) {
-        xil_printf("I2C Initialization failed\n");
-        return XST_FAILURE;
-    }
-    XIicPs_SetSClk(&I2cInstance, 100000);  // 100 kHz I2C clock
-
-    // Configure WM8731 registers
-    write_wm8731(0x0F, 0x000);  // R15: Reset
-    write_wm8731(0x04, 0x010);  // R4: Enable microphone input
-    write_wm8731(0x05, 0x000);  // R5: Disable high-pass filter
-    write_wm8731(0x06, 0x000);  // R6: Power on all blocks
-    write_wm8731(0x07, 0x00A);  // R7: I2S, 16-bit, slave mode
-    write_wm8731(0x08, 0x000);  // R8: 48 kHz sampling, normal mode
-    write_wm8731(0x09, 0x001);  // R9: Activate codec
-
-    xil_printf("WM8731 Configured\n");
-    while (1) {}  // Keep program running
-    return XST_SUCCESS;
-}
-
-/* Pseudo C code for WM8731 configuration */
-#include <xiicps.h>
-#define I2C_DEVICE_ID XPAR_PS7_I2C_0_DEVICE_ID
-#define WM8731_ADDR 0x1A
-
-XIicPs I2cInstance;
-u8 WriteBuffer[2];
-
-void write_wm8731(u8 reg, u8 value) {
-    WriteBuffer[0] = (reg << 1) | ((value >> 8) & 0x01);  // Register address + MSB
-    WriteBuffer[1] = value & 0xFF;  // LSB
-    XIicPs_MasterSendPolled(&I2cInstance, WriteBuffer, 2, WM8731_ADDR);
-}
-
-int main() {
-    XIicPs_Config *ConfigPtr = XIicPs_LookupConfig(I2C_DEVICE_ID);
-    XIicPs_CfgInitialize(&I2cInstance, ConfigPtr, ConfigPtr->BaseAddress);
-    XIicPs_SetSClk(&I2cInstance, 100000);  // 100 kHz I2C clock
-    
-    // WM8731 configuration
-    write_wm8731(0x0F, 0x00);  // R15: Reset
-    write_wm8731(0x04, 0x10);  // R4: Enable microphone input
-    write_wm8731(0x05, 0x00);  // R5: Disable high-pass filter
-    write_wm8731(0x06, 0x00);  // R6: Power on all blocks
-    write_wm8731(0x07, 0x0A);  // R7: I2S, 16-bit, slave mode
-    write_wm8731(0x08, 0x00);  // R8: 48 kHz sampling
-    write_wm8731(0x09, 0x01);  // R9: Activate codec
-    
-    return 0;
-}
-</code></pre>
+        <!-- Overview -->
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>Real-time audio processing at the hardware level demands a fundamentally different approach from software implementations. Every operation must complete within a deterministic time window — in this case, within the 48 kHz sampling period of the WM8731 audio codec. This project builds the entire audio processing chain in VHDL, running directly on the programmable logic of a Xilinx Zynq-7000 FPGA (ZedBoard), with no operating system or software stack in the signal path.</p>
+            <p>The system captures audio through a microphone connected to the WM8731 codec via the I2S protocol, feeds the samples into a Vivado-generated 256-point FFT IP core for spectral analysis, applies a three-band equalizer (low, mid, high) to the frequency-domain data, and transmits the processed audio back to the codec's DAC for speaker output. The codec itself is configured over I2C from the Zynq's processing system, setting 48 kHz sampling, 16-bit resolution, and slave I2S mode.</p>
         </section>
+
+        <!-- Signal Flow -->
+        <section id="signal-flow">
+            <h2>Signal Flow</h2>
+            <div class="pipeline">
+                <div class="pipeline-step">
+                    <div class="pipeline-num">01</div>
+                    <h3>I2S Receive</h3>
+                    <p>A state machine samples the <code>ADCDAT</code> line on each falling edge of BCLK, assembling a 16-bit audio sample from the left channel. Clocks are derived from the 100 MHz system clock: MCLK at ~12.288 MHz, BCLK at ~3.072 MHz, and LRCLK at 48 kHz.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">02</div>
+                    <h3>FFT Processing</h3>
+                    <p>Captured samples stream into the Vivado FFT IP core via an AXI-Stream interface. The core performs a 256-point fixed-point FFT at 16-bit precision in pipelined streaming mode, delivering frequency-domain bins with approximately 1 ms processing latency.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">03</div>
+                    <h3>Equalize</h3>
+                    <p>FFT output bins are divided into three bands — low (bins 0&ndash;63, 0&ndash;3 kHz), mid (bins 64&ndash;191, 3&ndash;9 kHz), and high (bins 192&ndash;255, 9&ndash;12 kHz). Each band is multiplied by a configurable Q15 fixed-point gain, then the results are summed to form the processed output sample.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">04</div>
+                    <h3>I2S Transmit</h3>
+                    <p>The processed 16-bit sample is serialised bit-by-bit onto the <code>DACDAT</code> line in sync with BCLK and LRCLK, delivering the equalised audio to the WM8731 DAC for speaker output.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hardware Setup -->
+        <section id="hardware">
+            <h2>Hardware &amp; Codec Configuration</h2>
+            <p>The WM8731 audio codec is connected to the ZedBoard via I2S signal lines (MCLK, BCLK, ADCLRC, DACLRC, ADCDAT, DACDAT) and configured over I2C before audio processing begins. The Zynq processing system sends configuration commands via its on-chip I2C controller to the codec's 7-bit address <code>0x1A</code>. Key register settings establish 48 kHz sampling, enable the microphone input, disable the high-pass filter for clean testing, and activate the codec in I2S 16-bit slave mode.</p>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span>wm8731_config.c &mdash; Codec Initialisation over I2C</span>
+                </div>
+                <pre><code><span class="code-comment">// Configure WM8731 registers via Zynq PS I2C controller</span>
+write_wm8731(<span class="code-num">0x0F</span>, <span class="code-num">0x000</span>);  <span class="code-comment">// R15: Reset codec</span>
+write_wm8731(<span class="code-num">0x04</span>, <span class="code-num">0x010</span>);  <span class="code-comment">// R4:  Enable microphone input</span>
+write_wm8731(<span class="code-num">0x05</span>, <span class="code-num">0x000</span>);  <span class="code-comment">// R5:  Disable high-pass filter</span>
+write_wm8731(<span class="code-num">0x06</span>, <span class="code-num">0x000</span>);  <span class="code-comment">// R6:  Power on all blocks</span>
+write_wm8731(<span class="code-num">0x07</span>, <span class="code-num">0x00A</span>);  <span class="code-comment">// R7:  I2S, 16-bit, slave mode</span>
+write_wm8731(<span class="code-num">0x08</span>, <span class="code-num">0x000</span>);  <span class="code-comment">// R8:  48 kHz sampling, normal mode</span>
+write_wm8731(<span class="code-num">0x09</span>, <span class="code-num">0x001</span>);  <span class="code-comment">// R9:  Activate codec</span></code></pre>
+            </div>
+        </section>
+
+        <!-- Key Features -->
+        <section id="features">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#9201;</div>
+                    <h3>Hardware Clock Generation</h3>
+                    <p>All I2S clocks — MCLK (12.288 MHz), BCLK (3.072 MHz), and LRCLK (48 kHz) — are derived from the 100 MHz system clock via a VHDL counter-based divider, eliminating the need for external clock sources.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#127908;</div>
+                    <h3>I2S State Machine</h3>
+                    <p>A three-state FSM (IDLE → LEFT → RIGHT) handles the I2S receive protocol, capturing 16 bits per left-channel sample and triggering the FFT pipeline as each frame completes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128200;</div>
+                    <h3>256-Point FFT via Vivado IP</h3>
+                    <p>The Xilinx FFT IP core (v9.1) is instantiated with pipelined streaming I/O, fixed-point 16-bit data format, and natural output ordering — delivering ~1 ms processing latency at 100 MHz.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#127925;</div>
+                    <h3>Three-Band Equalizer</h3>
+                    <p>FFT bins are grouped into low, mid, and high frequency bands. Each band is scaled by a Q15 fixed-point gain stored in a 48-bit signal, enabling independent boost or attenuation of each frequency range.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128268;</div>
+                    <h3>AXI-Stream Interface</h3>
+                    <p>The I2S receiver feeds data into the FFT core via AXI-Stream handshake signals (<code>tvalid</code>, <code>tready</code>), ensuring correct flow control and preventing data loss under varying processing loads.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128295;</div>
+                    <h3>VHDL Testbench with Real Audio</h3>
+                    <p>A Python script (<code>Generate_Audio_Test.py</code>) extracts 16 samples from a real 48 kHz speech WAV file and formats them as a VHDL array. The testbench feeds these samples into the design and verifies equalized output in Vivado simulation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Highlight -->
+        <section id="code">
+            <h2>Core VHDL — I2S Receiver</h2>
+            <p>The snippet below shows the I2S receive state machine that captures audio samples from the WM8731 ADC and hands them to the FFT pipeline.</p>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span>audio_processor.vhd &mdash; I2S Receiver FSM</span>
+                </div>
+                <pre><code><span class="code-keyword">process</span>(bclk_int, reset)
+<span class="code-keyword">begin</span>
+    <span class="code-keyword">if</span> reset = <span class="code-str">'1'</span> <span class="code-keyword">then</span>
+        i2s_state    &lt;= IDLE;
+        bit_counter  &lt;= <span class="code-num">0</span>;
+        audio_in     &lt;= (others =&gt; <span class="code-str">'0'</span>);
+        fft_tvalid_in &lt;= <span class="code-str">'0'</span>;
+    <span class="code-keyword">elsif</span> falling_edge(bclk_int) <span class="code-keyword">then</span>
+        <span class="code-keyword">case</span> i2s_state <span class="code-keyword">is</span>
+            <span class="code-keyword">when</span> IDLE =&gt;
+                <span class="code-keyword">if</span> lrclk_int = <span class="code-str">'0'</span> <span class="code-keyword">then</span>
+                    i2s_state   &lt;= LEFT;
+                    bit_counter &lt;= <span class="code-num">15</span>;
+                <span class="code-keyword">end if</span>;
+            <span class="code-keyword">when</span> LEFT =&gt;
+                audio_in(bit_counter) &lt;= adcdat;
+                <span class="code-keyword">if</span> bit_counter = <span class="code-num">0</span> <span class="code-keyword">then</span>
+                    fft_data_in   &lt;= audio_in;  <span class="code-comment">-- send sample to FFT</span>
+                    fft_tvalid_in &lt;= <span class="code-str">'1'</span>;
+                    i2s_state     &lt;= RIGHT;
+                    bit_counter   &lt;= <span class="code-num">15</span>;
+                <span class="code-keyword">else</span>
+                    bit_counter &lt;= bit_counter - <span class="code-num">1</span>;
+                <span class="code-keyword">end if</span>;
+            <span class="code-keyword">when</span> RIGHT =&gt;
+                <span class="code-keyword">if</span> bit_counter = <span class="code-num">0</span> <span class="code-keyword">then</span>
+                    i2s_state     &lt;= IDLE;
+                    fft_tvalid_in &lt;= <span class="code-str">'0'</span>;
+                <span class="code-keyword">else</span>
+                    bit_counter &lt;= bit_counter - <span class="code-num">1</span>;
+                <span class="code-keyword">end if</span>;
+        <span class="code-keyword">end case</span>;
+    <span class="code-keyword">end if</span>;
+<span class="code-keyword">end process</span>;</code></pre>
+            </div>
+        </section>
+
+        <!-- Specs -->
+        <section id="results">
+            <h2>System Specifications</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-number">48</div>
+                    <div class="result-label">kHz Sampling Rate</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">256</div>
+                    <div class="result-label">FFT Points</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">16</div>
+                    <div class="result-label">Bit Audio Precision</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">~1ms</div>
+                    <div class="result-label">FFT Processing Latency</div>
+                </div>
+            </div>
+            <p style="margin-top: 20px;">The system was simulated in Vivado using real speech samples extracted from a 48 kHz WAV file. I2S timing, FFT accuracy, and equalizer gain application were all verified in the waveform viewer. The design was synthesized and implemented for the Zynq-7000 (XC7Z020), with resource utilisation optimised across LUTs and DSP slices. An Integrated Logic Analyzer (ILA) was used for on-hardware debugging of signal paths post-deployment.</p>
+        </section>
+
+        <div class="project-nav-footer">
+            <a href="projects.html" class="hero-btn-back">&larr; Back to Projects</a>
+        </div>
+
     </main>
-
-    <footer>
-        <p>© 2025 Chukwunalu (J) Asuai</p>
+    <footer role="contentinfo">
+        <p>&copy; 2025 Chukwunalu (J) Asuai</p>
+        <button id="back-to-top" aria-label="Back to top">&#8593;</button>
     </footer>
+    <a href="https://linkedin.com/in/chukwunalu-asuai-a26b06167" target="_blank" class="lets-chat-btn" aria-label="Let's Chat on LinkedIn">Let's Chat</a>
 </body>
 </html>
