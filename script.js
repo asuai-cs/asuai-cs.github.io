@@ -1,4 +1,3 @@
-
 // Smooth scrolling for navigation links (only for hash links)
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -8,7 +7,6 @@ document.querySelectorAll('nav a').forEach(anchor => {
             const targetId = href;
             document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
         }
-        // Non-hash links (like cv.html) will navigate normally
     });
 });
 
@@ -16,12 +14,12 @@ document.querySelectorAll('nav a').forEach(anchor => {
 const sections = document.querySelectorAll('section');
 sections.forEach(section => {
     section.addEventListener('mouseover', () => {
-        section.style.backgroundColor = '#e8ecef';
-        section.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+        section.style.backgroundColor = 'rgba(8, 3, 22, 0.97)';
+        section.style.boxShadow = '0 10px 40px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.09)';
     });
     section.addEventListener('mouseout', () => {
-        section.style.backgroundColor = 'white';
-        section.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+        section.style.backgroundColor = 'rgba(8, 3, 22, 0.93)';
+        section.style.boxShadow = '0 6px 32px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.07)';
     });
 });
 
@@ -32,8 +30,6 @@ localStorage.setItem('visitorCount', visitorCount);
 const visitorCountElement = document.getElementById('visitor-count');
 if (visitorCountElement) {
     visitorCountElement.textContent = visitorCount;
-} else {
-    console.error('Visitor count element not found');
 }
 
 // Mobile menu toggle
@@ -103,22 +99,25 @@ if (skillsTree) {
 
 // Back to top button
 const backToTopButton = document.getElementById('back-to-top');
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        backToTopButton.style.display = 'block';
-    } else {
-        backToTopButton.style.display = 'none';
-    }
-});
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
 // Modal functionality
 document.querySelectorAll('.project-modal-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         const modalId = btn.dataset.modal;
         const modal = document.getElementById(modalId);
+        if (!modal) return;
         modal.classList.add('show');
         const tabContainer = modal.querySelector('.tab-container');
         if (tabContainer) {
@@ -126,8 +125,8 @@ document.querySelectorAll('.project-modal-btn').forEach(btn => {
             const contents = modal.querySelectorAll('.tab-content');
             tabs.forEach(t => t.classList.remove('active'));
             contents.forEach(c => c.style.display = 'none');
-            tabs[0].classList.add('active');
-            contents[0].style.display = 'block';
+            if (tabs[0]) tabs[0].classList.add('active');
+            if (contents[0]) contents[0].style.display = 'block';
         }
     });
 });
@@ -153,7 +152,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
         modal.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
         modal.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
         btn.classList.add('active');
-        content.style.display = 'block';
+        if (content) content.style.display = 'block';
     });
 });
 
@@ -165,22 +164,22 @@ document.querySelectorAll('code.code-styled').forEach(codeBlock => {
     codeBlock.innerHTML = code;
 });
 
-// Add to your existing modal handling
+// PCHB modal
 document.addEventListener('DOMContentLoaded', function() {
     const pchbModal = document.getElementById('pchb-modal');
+    if (!pchbModal) return;
     const pchbBtn = document.querySelector('[data-modal="pchb-modal"]');
-    
     if (pchbBtn) {
         pchbBtn.addEventListener('click', function() {
             pchbModal.style.display = 'block';
         });
     }
-
     const closePchb = pchbModal.querySelector('.close-modal');
-    closePchb.addEventListener('click', function() {
-        pchbModal.style.display = 'none';
-    });
-
+    if (closePchb) {
+        closePchb.addEventListener('click', function() {
+            pchbModal.style.display = 'none';
+        });
+    }
     window.addEventListener('click', function(event) {
         if (event.target === pchbModal) {
             pchbModal.style.display = 'none';
