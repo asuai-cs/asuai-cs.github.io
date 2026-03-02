@@ -2,8 +2,8 @@ body {
     font-family: 'Walbaum Text', 'Lora', 'Georgia', serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #0a1a0e;
+    color: #f0ecff;
     font-size: 16px;
     line-height: 1.8;
 }
@@ -12,6 +12,15 @@ body {
     --primary-color: #0a2a4a;
     --accent-color: #DAA520;
     --hover-color: #1a4a7a;
+}
+
+/* ── PCB CIRCUIT BOARD BACKGROUND ─────────────────────────────────── */
+body {
+    background-image: url("pcb_bg.svg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 header, footer {
@@ -99,14 +108,77 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 25px;
+    background: transparent;
 }
 
+/* ── SECTION CARDS: high-contrast dark glass panels ─────────────────── */
 section {
     margin-bottom: 25px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(8, 3, 22, 0.93);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 28px 32px;
+    border-radius: 6px;
+    box-shadow: 0 6px 32px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255,255,255,0.07);
+    border: 1px solid rgba(180, 120, 255, 0.18);
+}
+
+/* ── TYPOGRAPHY INSIDE SECTIONS ──────────────────────────────────────── */
+section h2 {
+    color: #ffffff;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 14px rgba(200, 160, 96, 0.35);
+}
+
+section p {
+    color: #eae6ff;
+    font-size: 1rem;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+section li {
+    color: #eae6ff;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+section strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+section em {
+    color: #f5e6b0;
+}
+
+section a {
+    color: #f0c060;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+section a:hover {
+    color: #ffe090;
+    text-decoration: underline;
+}
+
+/* News list specific */
+.news-list li {
+    color: #eae6ff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.news-highlight {
+    color: #a8d0ff;
+    font-weight: 600;
+}
+
+.news-award {
+    color: var(--accent-color);
+    font-style: italic;
 }
 
 h2 {
@@ -175,14 +247,16 @@ form {
 
 label {
     font-weight: bold;
-    color: var(--primary-color);
+    color: #d0c8ff;
 }
 
 input, textarea {
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: 4px;
     font-family: 'Walbaum Text', 'Lora', serif;
+    background: rgba(255,255,255,0.08);
+    color: #ffffff;
 }
 
 textarea {
@@ -222,12 +296,13 @@ button:hover {
 
 .timeline-item {
     padding: 10px;
-    background-color: #fff;
+    background-color: rgba(8,3,22,0.85);
+    color: #eae6ff;
     position: relative;
     width: 45%;
     margin: 10px 0;
     border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
 }
 
@@ -296,7 +371,7 @@ button:hover {
 .skills-category-title {
     font-family: 'Cinzel', serif;
     font-size: 0.92rem;
-    color: var(--primary-color);
+    color: #f0ecff;
     border-bottom: 2px solid var(--accent-color);
     padding-bottom: 8px;
     margin-bottom: 14px;
@@ -309,7 +384,7 @@ button:hover {
 .skills-category h3 {
     font-family: 'Cinzel', serif;
     font-size: 1rem;
-    color: var(--primary-color);
+    color: #f0ecff;
     border-bottom: 2px solid var(--accent-color);
     padding-bottom: 6px;
     margin-bottom: 14px;
@@ -329,9 +404,9 @@ button:hover {
 }
 
 .skills-badges li {
-    background: #f0f4f8;
-    border: 1px solid #d0dce8;
-    color: var(--primary-color);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #eae6ff;
     font-size: 0.85rem;
     font-weight: 600;
     padding: 5px 12px;
@@ -341,9 +416,9 @@ button:hover {
 }
 
 .skills-badges li:hover {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+    background: var(--accent-color);
+    color: #000;
+    border-color: var(--accent-color);
 }
 
 @media (max-width: 600px) {
@@ -358,13 +433,14 @@ button:hover {
 }
 
 .project-item {
-    background-color: #fff;
+    background-color: rgba(8,3,22,0.85);
     padding: 10px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     width: 220px;
     text-align: center;
     transition: transform 0.3s ease;
+    color: #eae6ff;
 }
 
 .project-item:hover {
@@ -392,7 +468,7 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -404,7 +480,8 @@ button:hover {
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: #0d0520;
+    color: #eae6ff;
     margin: 5% auto;
     padding: 20px;
     border-radius: 8px;
@@ -415,6 +492,7 @@ button:hover {
     overflow-y: auto;
     transform: scale(0.8);
     transition: transform 0.3s ease, opacity 0.3s ease;
+    border: 1px solid rgba(180,120,255,0.2);
 }
 
 .modal.show .modal-content {
@@ -423,7 +501,7 @@ button:hover {
 }
 
 .close-modal {
-    color: var(--primary-color);
+    color: #eae6ff;
     float: right;
     font-size: 24px;
     font-weight: bold;
@@ -431,11 +509,11 @@ button:hover {
 }
 
 .close-modal:hover {
-    color: var(--hover-color);
+    color: var(--accent-color);
 }
 
 pre {
-    background-color: #f5f5f5;
+    background-color: #0d1f33;
     padding: 15px;
     border-radius: 5px;
     overflow-x: auto;
@@ -447,7 +525,7 @@ pre {
 
 code {
     font-size: 14px;
-    color: #333;
+    color: #c8dff0;
     white-space: pre-wrap;
 }
 
@@ -460,7 +538,7 @@ code {
 }
 
 .code-styled span.comment {
-    color: #008000;
+    color: #5a9a6a;
 }
 
 .cta-banner {
@@ -523,10 +601,11 @@ code {
 }
 
 .report-container {
-    background: white;
+    background: rgba(8,3,22,0.85);
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    color: #eae6ff;
 }
 
 .tech-tags {
@@ -538,11 +617,11 @@ code {
 
 .tech-tags span {
     display: inline-block;
-    background: #e9ecef;
+    background: rgba(255,255,255,0.1);
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     font-size: 0.9rem;
-    color: var(--primary-color);
+    color: #eae6ff;
 }
 
 #cv iframe {
@@ -550,7 +629,7 @@ code {
     width: 100%;
     min-height: 600px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap');
@@ -602,18 +681,6 @@ code {
     .branch {
         max-width: 100%;
     }
-    .branch::before {
-        width: 50px;
-        top: -10px;
-        transform: translateX(-50%) rotate(0deg);
-    }
-    .branch.technical::before {
-        transform: translateX(-50%) rotate(0deg);
-    }
-    .sub-branch::before {
-        width: 20px;
-        left: -25px;
-    }
     .project-item {
         width: 100%;
     }
@@ -639,63 +706,52 @@ code {
     }
 }
 
-
 /* ── HERO HEADER ──────────────────────────────────────────────────── */
 .hero-header {
-        position: relative;
-        width: 100%;
-        min-height: unset;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        background: #060d1a;
-      }
-      .hero-bg-svg {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .hero-inner {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        gap: 40px;
-        padding: 30px 8%;
-        width: 100%;
-      }
-      .hero-photo-wrap {
-        flex-shrink: 0;
-        border: 4px solid rgba(0,207,255,0.6);
-        border-radius: 6px;
-        box-shadow: 0 0 24px rgba(0,207,255,0.3);
-      }
-      .hero-photo-wrap img {
-        display: block;
-        width: 200px;
-        height: auto;
-        object-fit: unset;
-      }
-      .hero-text h1 {
-        font-size: 2.4rem;
-        color: #e8f4ff;
-        margin: 0 0 10px;
-        text-shadow: 0 0 20px rgba(0,180,255,0.5);
-      }
-      .hero-text h2 {
-        font-size: 1.1rem;
-        color: #00cfff;
-        font-weight: 400;
-        margin: 0;
-        letter-spacing: 0.04em;
-      }
-      @media (max-width: 650px) {
-        .hero-inner { flex-direction: column; padding: 32px 6%; }
-        .hero-text h1 { font-size: 1.6rem; }
-      }
-/* ── HIGHLIGHTED NEWS ─────────────────────────────────────────────── */
+    position: relative;
+    width: 100%;
+    min-height: unset;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: #060d1a;
+}
+.hero-bg-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 30px 8%;
+    width: 100%;
+}
+.hero-photo-wrap {
+    flex-shrink: 0;
+    border: 4px solid rgba(0,207,255,0.6);
+    border-radius: 6px;
+    box-shadow: 0 0 24px rgba(0,207,255,0.3);
+}
+.hero-photo-wrap img {
+    display: block;
+    width: 200px;
+    height: auto;
+    object-fit: unset;
+}
+
+
+@media (max-width: 650px) {
+    .hero-inner { flex-direction: column; padding: 32px 6%; }
+    
+}
+
+/* ── NEWS LIST ────────────────────────────────────────────────────── */
 .news-list {
     list-style: disc;
     padding-left: 20px;
@@ -704,9 +760,10 @@ code {
 
 .news-list li {
     padding: 12px 0;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     line-height: 1.8;
     font-size: 1rem;
+    color: #eae6ff;
 }
 
 .news-list li:last-child {
@@ -714,11 +771,11 @@ code {
 }
 
 .news-list strong:first-child {
-    color: var(--primary-color);
+    color: #ffffff;
 }
 
 .news-highlight {
-    color: var(--primary-color);
+    color: #a8d0ff;
     font-weight: 600;
 }
 
@@ -779,7 +836,7 @@ code {
     height: 11px;
     border-radius: 50%;
     background: var(--accent-color);
-    border: 2px solid white;
+    border: 2px solid #0d0520;
     box-shadow: 0 0 0 2px var(--accent-color);
 }
 
@@ -799,7 +856,7 @@ code {
 .career-header h3 {
     margin: 0 0 3px;
     font-size: 1.05rem;
-    color: var(--primary-color);
+    color: #ffffff;
 }
 
 .career-org {
@@ -812,7 +869,7 @@ code {
 
 .career-date {
     font-size: 0.82rem;
-    color: #666;
+    color: #b0a8d0;
     white-space: nowrap;
     font-weight: 600;
     padding-top: 3px;
@@ -831,7 +888,7 @@ code {
 .project-category-title {
     font-family: 'Cinzel', serif;
     font-size: 1rem;
-    color: var(--primary-color);
+    color: #f0ecff;
     border-bottom: 2px solid var(--accent-color);
     padding-bottom: 8px;
     margin-bottom: 20px;
@@ -851,20 +908,21 @@ code {
 }
 
 .project-card {
-    background: #fff;
-    border: 1px solid #e0e8f0;
-    border-top: 3px solid var(--primary-color);
+    background: rgba(8,3,22,0.85);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: 3px solid #7090d0;
     border-radius: 6px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     transition: transform 0.2s, box-shadow 0.2s;
+    color: #eae6ff;
 }
 
 .project-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(10, 42, 74, 0.12);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
 .project-card-top {
@@ -877,7 +935,7 @@ code {
 .project-card-top h4 {
     font-family: 'Cinzel', serif;
     font-size: 0.95rem;
-    color: var(--primary-color);
+    color: #f0ecff;
     margin: 0;
     line-height: 1.4;
 }
@@ -894,21 +952,21 @@ code {
 }
 
 .project-badge-research {
-    background: rgba(10, 42, 74, 0.1);
-    color: var(--primary-color);
-    border: 1px solid rgba(10, 42, 74, 0.25);
+    background: rgba(100,140,255,0.15);
+    color: #a8c0ff;
+    border: 1px solid rgba(100,140,255,0.3);
 }
 
 .project-badge-build {
-    background: rgba(218, 165, 32, 0.12);
-    color: #8a6200;
-    border: 1px solid rgba(218, 165, 32, 0.4);
+    background: rgba(218,165,32,0.15);
+    color: #f0c060;
+    border: 1px solid rgba(218,165,32,0.4);
 }
 
 .project-card p {
     font-size: 0.9rem;
     line-height: 1.7;
-    color: #444;
+    color: #d8d0f0;
     margin: 0;
     flex: 1;
 }
@@ -920,9 +978,9 @@ code {
 }
 
 .project-tags span {
-    background: #f0f4f8;
-    border: 1px solid #d0dce8;
-    color: var(--primary-color);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #c8c0e8;
     font-size: 0.75rem;
     font-weight: 600;
     padding: 3px 10px;
@@ -941,7 +999,7 @@ code {
 }
 
 .project-link:hover {
-    color: var(--primary-color);
+    color: #ffe090;
 }
 
 @media (max-width: 600px) {
@@ -952,6 +1010,7 @@ code {
 .breadcrumb {
     margin-bottom: 10px;
     font-size: 0.88rem;
+    color: #c0b8e0;
 }
 
 .breadcrumb a {
@@ -960,14 +1019,15 @@ code {
     font-weight: 600;
 }
 
-.breadcrumb a:hover { color: var(--primary-color); }
+.breadcrumb a:hover { color: #ffe090; }
 
 .project-detail-header {
-    background: var(--primary-color);
+    background: rgba(10,20,50,0.95);
     color: white;
     border-radius: 8px;
     padding: 28px 28px 24px;
     margin-bottom: 0;
+    border: 1px solid rgba(180,120,255,0.2);
 }
 
 .project-detail-header h2 {
@@ -1001,7 +1061,6 @@ code {
     letter-spacing: 0.04em;
 }
 
-/* Pipeline */
 .pipeline {
     display: flex;
     align-items: flex-start;
@@ -1013,23 +1072,24 @@ code {
 .pipeline-step {
     flex: 1;
     min-width: 200px;
-    background: #f7fafc;
-    border: 1px solid #dde8f0;
-    border-top: 3px solid var(--primary-color);
+    background: rgba(8,3,22,0.85);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: 3px solid #7090d0;
     border-radius: 6px;
     padding: 20px;
+    color: #eae6ff;
 }
 
 .pipeline-step h3 {
     font-size: 1rem;
-    color: var(--primary-color);
+    color: #f0ecff;
     margin: 8px 0 10px;
 }
 
 .pipeline-step p {
     font-size: 0.88rem;
     line-height: 1.7;
-    color: #444;
+    color: #c8c0e8;
     margin: 0;
 }
 
@@ -1048,7 +1108,6 @@ code {
     flex-shrink: 0;
 }
 
-/* Features grid */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -1057,10 +1116,11 @@ code {
 }
 
 .feature-card {
-    background: #f7fafc;
-    border: 1px solid #dde8f0;
+    background: rgba(8,3,22,0.85);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 6px;
     padding: 18px;
+    color: #eae6ff;
 }
 
 .feature-icon {
@@ -1070,27 +1130,26 @@ code {
 
 .feature-card h3 {
     font-size: 0.92rem;
-    color: var(--primary-color);
+    color: #f0ecff;
     margin: 0 0 8px;
 }
 
 .feature-card p {
     font-size: 0.87rem;
     line-height: 1.7;
-    color: #444;
+    color: #c8c0e8;
     margin: 0;
 }
 
-/* Code block */
 .code-block {
-    border: 1px solid #dde8f0;
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 6px;
     overflow: hidden;
     margin: 14px 0;
 }
 
 .code-block-header {
-    background: var(--primary-color);
+    background: #0a1428;
     color: #b8d4ea;
     font-size: 0.78rem;
     font-weight: 600;
@@ -1120,7 +1179,6 @@ code {
 .code-str     { color: #DAA520; }
 .code-num     { color: #ff9d5c; }
 
-/* Results grid */
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -1129,12 +1187,13 @@ code {
 }
 
 .result-card {
-    background: #f7fafc;
-    border: 1px solid #dde8f0;
-    border-top: 3px solid var(--primary-color);
+    background: rgba(8,3,22,0.85);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: 3px solid #7090d0;
     border-radius: 6px;
     padding: 20px;
     text-align: center;
+    color: #eae6ff;
 }
 
 .result-card-alert {
@@ -1145,16 +1204,16 @@ code {
     font-family: 'Cinzel', serif;
     font-size: 2.2rem;
     font-weight: 900;
-    color: var(--primary-color);
+    color: #f0ecff;
     line-height: 1;
 }
 
-.result-card-alert .result-number { color: #c0392b; }
+.result-card-alert .result-number { color: #e06060; }
 
 .result-label {
     font-size: 0.82rem;
     font-weight: 600;
-    color: #555;
+    color: #b0a8d0;
     margin-top: 8px;
     line-height: 1.4;
 }
@@ -1162,14 +1221,14 @@ code {
 .project-nav-footer {
     margin-top: 10px;
     padding-top: 20px;
-    border-top: 1px solid #dde8f0;
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .hero-btn-back {
     font-family: 'Cinzel', serif;
     font-size: 0.82rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: #f0ecff;
     text-decoration: none;
     letter-spacing: 0.04em;
     transition: color 0.2s;
@@ -1182,4 +1241,65 @@ code {
     .pipeline-arrow { padding: 4px 0; transform: rotate(90deg); align-self: center; }
     .features-grid { grid-template-columns: 1fr; }
     .results-grid { grid-template-columns: 1fr 1fr; }
+}
+/* ── HERO TEXT — Dr. Sakib-style professional layout ─────────────── */
+.hero-text h1 {
+    font-size: 2.4rem;
+    color: #e8f4ff;
+    margin: 0 0 10px;
+    text-shadow: 0 0 20px rgba(0,180,255,0.5);
+}
+
+.hero-role {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #00cfff;
+    margin: 0 0 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.hero-dept {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 0.95rem;
+    color: #b8d8f0;
+    margin: 0 0 14px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.hero-research-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #DAA520;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+    border-bottom: 1px solid rgba(218,165,32,0.35);
+    display: inline-block;
+    padding-bottom: 2px;
+}
+
+.hero-research {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1rem;
+    color: #e8f4ff;
+    margin: 4px 0 0;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.hero-research-sub {
+    font-size: 0.88rem;
+    color: #a8c8e8;
+    font-weight: 400;
+    font-style: italic;
+}
+
+@media (max-width: 650px) {
+    .hero-text h1 { font-size: 1.6rem; }
+    .hero-role { font-size: 0.9rem; }
+    .hero-dept { font-size: 0.85rem; }
 }
