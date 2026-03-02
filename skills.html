@@ -9,6 +9,248 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <script src="script.js" defer></script>
+
+    <style>
+/* ── SKILLS TREE ──────────────────────────────────────────────────── */
+.skills-intro {
+    color: #b0a8d0;
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+}
+
+.skills-tree-wrap {
+    position: relative;
+    min-height: 560px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 28px;
+    padding: 20px 0 20px 0;
+}
+
+/* SVG connector lines */
+.skills-tree-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+}
+
+/* ROOT NODE — centred over the grid */
+.st-root {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #2a1060, #0a0320);
+    border: 2.5px solid #DAA520;
+    box-shadow: 0 0 24px rgba(218,165,32,0.4), 0 0 60px rgba(218,165,32,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #DAA520;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    cursor: default;
+    transition: box-shadow 0.3s;
+}
+
+.st-root:hover {
+    box-shadow: 0 0 36px rgba(218,165,32,0.65), 0 0 80px rgba(218,165,32,0.2);
+}
+
+.st-root-sub {
+    font-size: 0.68rem;
+    color: #f0ecff;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+}
+
+/* BRANCH NODES */
+.st-branch {
+    position: relative;
+    z-index: 5;
+    background: rgba(8, 3, 22, 0.82);
+    border: 1px solid rgba(180,120,255,0.18);
+    border-radius: 8px;
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s;
+}
+
+.st-branch.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Stagger delays */
+.st-b1 { transition-delay: 0.1s; }
+.st-b2 { transition-delay: 0.25s; }
+.st-b3 { transition-delay: 0.4s; }
+.st-b4 { transition-delay: 0.55s; }
+
+/* Accent colour per branch */
+.st-b1 { border-top: 3px solid #00cfff; }
+.st-b2 { border-top: 3px solid #ff6b6b; }
+.st-b3 { border-top: 3px solid #6bff9e; }
+.st-b4 { border-top: 3px solid #DAA520; }
+
+.st-branch:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+.st-branch-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #f0ecff;
+    letter-spacing: 0.04em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.st-b1 .st-branch-head { color: #00cfff; }
+.st-b2 .st-branch-head { color: #ff9090; }
+.st-b3 .st-branch-head { color: #7aff9e; }
+.st-b4 .st-branch-head { color: #DAA520; }
+
+.st-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* LEAF BADGES */
+.st-leaves {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.st-leaf {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 11px;
+    border-radius: 20px;
+    cursor: default;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease, transform 0.35s ease,
+                background 0.2s, color 0.2s;
+    letter-spacing: 0.02em;
+}
+
+.st-leaf.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Leaf colours per branch */
+.st-b1 .st-leaf {
+    background: rgba(0,207,255,0.1);
+    border: 1px solid rgba(0,207,255,0.25);
+    color: #b0eeff;
+}
+.st-b1 .st-leaf:hover {
+    background: rgba(0,207,255,0.25);
+    color: #fff;
+}
+
+.st-b2 .st-leaf {
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.25);
+    color: #ffb8b8;
+}
+.st-b2 .st-leaf:hover {
+    background: rgba(255,107,107,0.25);
+    color: #fff;
+}
+
+.st-b3 .st-leaf {
+    background: rgba(107,255,158,0.1);
+    border: 1px solid rgba(107,255,158,0.25);
+    color: #b0ffcc;
+}
+.st-b3 .st-leaf:hover {
+    background: rgba(107,255,158,0.25);
+    color: #fff;
+}
+
+.st-b4 .st-leaf {
+    background: rgba(218,165,32,0.1);
+    border: 1px solid rgba(218,165,32,0.28);
+    color: #f0d080;
+}
+.st-b4 .st-leaf:hover {
+    background: rgba(218,165,32,0.25);
+    color: #fff;
+}
+
+/* SVG connector lines */
+.st-connector {
+    stroke-width: 1.5;
+    fill: none;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    transition: stroke-dashoffset 0.8s ease;
+}
+.st-connector.drawn {
+    stroke-dashoffset: 0;
+}
+.st-c1 { stroke: rgba(0,207,255,0.35); }
+.st-c2 { stroke: rgba(255,107,107,0.35); }
+.st-c3 { stroke: rgba(107,255,158,0.35); }
+.st-c4 { stroke: rgba(218,165,32,0.35); }
+
+/* Connector dots at branch ends */
+.st-dot {
+    r: 4;
+    transition: opacity 0.4s 0.6s;
+    opacity: 0;
+}
+.st-dot.visible { opacity: 1; }
+.st-dot-1 { fill: rgba(0,207,255,0.7); }
+.st-dot-2 { fill: rgba(255,107,107,0.7); }
+.st-dot-3 { fill: rgba(107,255,158,0.7); }
+.st-dot-4 { fill: rgba(218,165,32,0.7); }
+
+/* Responsive */
+@media (max-width: 720px) {
+    .skills-tree-wrap {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        min-height: unset;
+        padding: 0;
+    }
+    .skills-tree-svg { display: none; }
+    .st-root {
+        position: relative;
+        top: unset; left: unset;
+        transform: none;
+        margin: 0 auto 24px;
+    }
+}
+
+    </style>
 </head>
 <body>
     <!-- HERO -->
@@ -64,8 +306,11 @@
           <img src="profile.jpg" alt="Chukwunalu Asuai Portrait">
         </div>
         <div class="hero-text">
-          <h1>Chukwunalu Asuai</h1>
-          <h2>Innovator in Hardware Security &amp; Formal Verification</h2>
+          <h1>Chukwunalu (J) Asuai</h1>
+          <p class="hero-role">Graduate Research &amp; Teaching Assistant</p>
+        <p class="hero-dept">Dept. of Electrical and Computer Engineering<br>North Dakota State University, Fargo, ND, USA</p>
+        <p class="hero-research-label">Research Focus</p>
+        <p class="hero-research">Cybersecurity, Hardware Security &amp; Formal Verification</p>
         </div>
       </div>
     </header>
@@ -85,83 +330,98 @@
     <main>
         <section id="skills-tools">
             <h2>Skills &amp; Tools</h2>
-            <p>A focused overview of my core technical competencies and the tools I work with across research, industry, and academic practice.</p>
+            <p class="skills-intro">A visual map of my core competencies across research, industry, and academic practice.</p>
 
-            <div class="skills-grid-4">
+            <div class="skills-tree-wrap">
+                <!-- SVG connector lines drawn by JS -->
+                <svg class="skills-tree-svg" id="skillsSvg" aria-hidden="true"></svg>
 
-                <div class="skills-category">
-                    <h3 class="skills-category-title">
-                        <span class="category-icon">&#128274;</span> Hardware &amp; Circuit Design
-                    </h3>
-                    <ul class="skills-badges">
-                        <li>Hardware Security</li>
-                        <li>Formal Verification</li>
-                        <li>Asynchronous Circuit Design</li>
-                        <li>PCHB / QDI Circuits</li>
-                        <li>SMT Solvers</li>
-                        <li>VHDL / Verilog</li>
-                        <li>SystemVerilog</li>
-                        <li>JasperGold</li>
-                        <li>FPGA Design</li>
-                        <li>ASIC Design</li>
-                        <li>Quartus &amp; ModelSim</li>
-                    </ul>
+                <!-- ROOT NODE -->
+                <div class="st-root" id="stRoot">
+                    <span>Chukwunalu</span>
+                    <span class="st-root-sub">Asuai</span>
                 </div>
 
-                <div class="skills-category">
-                    <h3 class="skills-category-title">
-                        <span class="category-icon">&#128272;</span> Cybersecurity
-                    </h3>
-                    <ul class="skills-badges">
-                        <li>Penetration Testing</li>
-                        <li>Red Team Operations</li>
-                        <li>Incident Response</li>
-                        <li>Threat Intelligence</li>
-                        <li>Vulnerability Assessment</li>
-                        <li>Metasploit</li>
-                        <li>Burp Suite</li>
-                        <li>Splunk</li>
-                        <li>QRadar</li>
-                        <li>Nessus</li>
-                        <li>Wireshark</li>
-                        <li>Suricata</li>
-                        <li>Kali Linux</li>
-                    </ul>
+                <!-- BRANCH 1: Hardware & Circuit Design -->
+                <div class="st-branch st-b1" id="stB1">
+                    <div class="st-branch-head">
+                        <span class="st-icon">&#128274;</span>
+                        <span>Hardware &amp; Circuit Design</span>
+                    </div>
+                    <div class="st-leaves">
+                        <span class="st-leaf">Hardware Security</span>
+                        <span class="st-leaf">Formal Verification</span>
+                        <span class="st-leaf">Async Circuit Design</span>
+                        <span class="st-leaf">PCHB / QDI Circuits</span>
+                        <span class="st-leaf">SMT Solvers</span>
+                        <span class="st-leaf">VHDL / Verilog</span>
+                        <span class="st-leaf">SystemVerilog</span>
+                        <span class="st-leaf">JasperGold</span>
+                        <span class="st-leaf">FPGA Design</span>
+                        <span class="st-leaf">Quartus &amp; ModelSim</span>
+                    </div>
                 </div>
 
-                <div class="skills-category">
-                    <h3 class="skills-category-title">
-                        <span class="category-icon">&#129302;</span> Software &amp; AI
-                    </h3>
-                    <ul class="skills-badges">
-                        <li>Python</li>
-                        <li>C / C++</li>
-                        <li>PowerShell</li>
-                        <li>MicroPython</li>
-                        <li>MATLAB / Simulink</li>
-                        <li>Machine Learning</li>
-                        <li>Deep Learning</li>
-                        <li>PyTorch</li>
-                        <li>TensorFlow</li>
-                        <li>IoT Systems</li>
-                        <li>MQTT</li>
-                    </ul>
+                <!-- BRANCH 2: Cybersecurity -->
+                <div class="st-branch st-b2" id="stB2">
+                    <div class="st-branch-head">
+                        <span class="st-icon">&#128272;</span>
+                        <span>Cybersecurity</span>
+                    </div>
+                    <div class="st-leaves">
+                        <span class="st-leaf">Penetration Testing</span>
+                        <span class="st-leaf">Red Team Ops</span>
+                        <span class="st-leaf">Incident Response</span>
+                        <span class="st-leaf">Threat Intelligence</span>
+                        <span class="st-leaf">Vulnerability Assessment</span>
+                        <span class="st-leaf">Metasploit</span>
+                        <span class="st-leaf">Burp Suite</span>
+                        <span class="st-leaf">Splunk / QRadar</span>
+                        <span class="st-leaf">Nessus</span>
+                        <span class="st-leaf">Wireshark</span>
+                        <span class="st-leaf">Suricata</span>
+                        <span class="st-leaf">Kali Linux</span>
+                    </div>
                 </div>
 
-                <div class="skills-category">
-                    <h3 class="skills-category-title">
-                        <span class="category-icon">&#127891;</span> Research &amp; Leadership
-                    </h3>
-                    <ul class="skills-badges">
-                        <li>Technical Writing</li>
-                        <li>Research Skills</li>
-                        <li>Teaching &amp; Mentoring</li>
-                        <li>Leadership</li>
-                        <li>Critical Thinking</li>
-                    </ul>
+                <!-- BRANCH 3: Software & AI -->
+                <div class="st-branch st-b3" id="stB3">
+                    <div class="st-branch-head">
+                        <span class="st-icon">&#129302;</span>
+                        <span>Software &amp; AI</span>
+                    </div>
+                    <div class="st-leaves">
+                        <span class="st-leaf">Python</span>
+                        <span class="st-leaf">C / C++</span>
+                        <span class="st-leaf">PowerShell</span>
+                        <span class="st-leaf">MicroPython</span>
+                        <span class="st-leaf">MATLAB / Simulink</span>
+                        <span class="st-leaf">Machine Learning</span>
+                        <span class="st-leaf">Deep Learning</span>
+                        <span class="st-leaf">PyTorch</span>
+                        <span class="st-leaf">TensorFlow</span>
+                        <span class="st-leaf">IoT Systems</span>
+                        <span class="st-leaf">MQTT</span>
+                    </div>
                 </div>
 
-            </div>
+                <!-- BRANCH 4: Research & Leadership -->
+                <div class="st-branch st-b4" id="stB4">
+                    <div class="st-branch-head">
+                        <span class="st-icon">&#127891;</span>
+                        <span>Research &amp; Leadership</span>
+                    </div>
+                    <div class="st-leaves">
+                        <span class="st-leaf">Technical Writing</span>
+                        <span class="st-leaf">Research Methods</span>
+                        <span class="st-leaf">Teaching &amp; Mentoring</span>
+                        <span class="st-leaf">Team Leadership</span>
+                        <span class="st-leaf">Critical Thinking</span>
+                        <span class="st-leaf">Public Speaking</span>
+                    </div>
+                </div>
+
+            </div><!-- /.skills-tree-wrap -->
         </section>
     </main>
     <footer role="contentinfo">
@@ -169,5 +429,131 @@
         <button id="back-to-top" aria-label="Back to top">&#8593;</button>
     </footer>
     <a href="https://linkedin.com/in/chukwunalu-asuai-a26b06167" target="_blank" class="lets-chat-btn" aria-label="Let's Chat on LinkedIn">Let's Chat</a>
+
+    <script>
+// ── SKILLS TREE ANIMATION & SVG CONNECTORS ────────────────────────────
+(function() {
+    function initSkillsTree() {
+        const wrap   = document.querySelector('.skills-tree-wrap');
+        const root   = document.getElementById('stRoot');
+        const svg    = document.getElementById('skillsSvg');
+        const branches = ['stB1','stB2','stB3','stB4'];
+        const connCls  = ['st-c1','st-c2','st-c3','st-c4'];
+        const dotCls   = ['st-dot-1','st-dot-2','st-dot-3','st-dot-4'];
+
+        if (!wrap || !root || !svg) return;
+
+        function centre(el) {
+            const wr = wrap.getBoundingClientRect();
+            const er = el.getBoundingClientRect();
+            return {
+                x: er.left - wr.left + er.width  / 2,
+                y: er.top  - wr.top  + er.height / 2
+            };
+        }
+
+        function edgePoint(el, toward) {
+            const wr = wrap.getBoundingClientRect();
+            const er = el.getBoundingClientRect();
+            const cx = er.left - wr.left + er.width  / 2;
+            const cy = er.top  - wr.top  + er.height / 2;
+            const dx = toward.x - cx;
+            const dy = toward.y - cy;
+            const angle = Math.atan2(dy, dx);
+            // Use ellipse approximation (root is circle, branches are rects)
+            const rx = er.width  / 2;
+            const ry = er.height / 2;
+            return {
+                x: cx + rx * Math.cos(angle),
+                y: cy + ry * Math.sin(angle)
+            };
+        }
+
+        function drawConnectors() {
+            svg.innerHTML = '';
+            const rc = centre(root);
+
+            branches.forEach(function(id, i) {
+                const branchEl = document.getElementById(id);
+                if (!branchEl) return;
+
+                const bc   = centre(branchEl);
+                const rPt  = edgePoint(root, bc);
+                const bPt  = edgePoint(branchEl, rc);
+
+                // Cubic bezier for organic curve
+                const mx = (rPt.x + bPt.x) / 2;
+                const my = (rPt.y + bPt.y) / 2;
+                const d  = `M ${rPt.x} ${rPt.y} C ${mx} ${rPt.y}, ${mx} ${bPt.y}, ${bPt.x} ${bPt.y}`;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+                path.setAttribute('d', d);
+                path.setAttribute('class', 'st-connector ' + connCls[i]);
+                svg.appendChild(path);
+
+                const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+                dot.setAttribute('cx', bPt.x);
+                dot.setAttribute('cy', bPt.y);
+                dot.setAttribute('class', 'st-dot ' + dotCls[i]);
+                svg.appendChild(dot);
+            });
+        }
+
+        // Intersection Observer to trigger animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+
+                drawConnectors();
+
+                // Animate connectors
+                setTimeout(function() {
+                    document.querySelectorAll('.st-connector').forEach(function(p) {
+                        p.classList.add('drawn');
+                    });
+                }, 100);
+
+                // Animate branches
+                branches.forEach(function(id, i) {
+                    setTimeout(function() {
+                        const b = document.getElementById(id);
+                        if (b) b.classList.add('visible');
+                    }, 150 + i * 150);
+                });
+
+                // Animate dots
+                setTimeout(function() {
+                    document.querySelectorAll('.st-dot').forEach(function(d) {
+                        d.classList.add('visible');
+                    });
+                }, 700);
+
+                // Animate leaves with stagger
+                document.querySelectorAll('.st-leaf').forEach(function(leaf, idx) {
+                    setTimeout(function() {
+                        leaf.classList.add('visible');
+                    }, 400 + idx * 40);
+                });
+
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.15 });
+
+        observer.observe(wrap);
+
+        // Redraw connectors on resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 720) drawConnectors();
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSkillsTree);
+    } else {
+        initSkillsTree();
+    }
+})();
+
+    </script>
 </body>
 </html>
