@@ -14,11 +14,11 @@ document.querySelectorAll('nav a').forEach(anchor => {
 const sections = document.querySelectorAll('section');
 sections.forEach(section => {
     section.addEventListener('mouseover', () => {
-        section.style.backgroundColor = 'rgba(8, 3, 22, 0.97)';
+        section.style.backgroundColor = 'rgba(15, 28, 70, 0.90)';
         section.style.boxShadow = '0 10px 40px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.09)';
     });
     section.addEventListener('mouseout', () => {
-        section.style.backgroundColor = 'rgba(8, 3, 22, 0.93)';
+        section.style.backgroundColor = 'rgba(15, 28, 70, 0.90)';
         section.style.boxShadow = '0 6px 32px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.07)';
     });
 });
