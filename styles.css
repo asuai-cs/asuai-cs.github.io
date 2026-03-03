@@ -14,13 +14,37 @@ body {
     --hover-color: #1a4a7a;
 }
 
-/* ── PCB CIRCUIT BOARD BACKGROUND ─────────────────────────────────── */
+/* ── PCB CIRCUIT BOARD BACKGROUND */
 body {
+    background-color: #05020f;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
     background-image: url("pcb_bg.svg");
     background-size: cover;
-    background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
+    filter: blur(2px) brightness(0.28) saturate(0.7);
+    transform: scale(1.05);
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background: rgba(4, 1, 12, 0.68);
+    pointer-events: none;
+}
+
+header, nav, main, footer, .lets-chat-btn {
+    position: relative;
+    z-index: 2;
 }
 
 header, footer {
@@ -114,7 +138,7 @@ main {
 /* ── SECTION CARDS: high-contrast dark glass panels ─────────────────── */
 section {
     margin-bottom: 25px;
-    background-color: rgba(8, 3, 22, 0.93);
+    background-color: rgba(15, 28, 70, 0.90);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 28px 32px;
