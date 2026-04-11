@@ -186,3 +186,55 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+// ── LIGHT / DARK MODE TOGGLE ───────────────────────────────────────
+(function () {
+    const STORAGE_KEY = 'jnalu-theme';
+
+    // Apply saved preference immediately on load
+    if (localStorage.getItem(STORAGE_KEY) === 'light') {
+        document.body.classList.add('light-mode');
+    }
+
+    function buildToggle() {
+        const btn = document.createElement('button');
+        btn.id = 'theme-toggle';
+        btn.className = 'theme-toggle';
+        btn.setAttribute('aria-label', 'Toggle light/dark mode');
+        btn.title = 'Toggle light / dark mode';
+        setIcon(btn);
+
+        // Place it inside the nav, right-aligned
+        const nav = document.querySelector('nav');
+        if (nav) {
+            btn.style.position = 'absolute';
+            btn.style.right = '16px';
+            btn.style.top = '50%';
+            btn.style.transform = 'translateY(-50%)';
+            btn.style.zIndex = '3000';
+            nav.style.position = 'relative';
+            nav.appendChild(btn);
+        } else {
+            // fallback: fixed top-right
+            document.body.appendChild(btn);
+        }
+
+        btn.addEventListener('click', () => {
+            // Clear the transform set inline so CSS hover scale works
+            btn.style.transform = 'translateY(-50%)';
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem(STORAGE_KEY, isLight ? 'light' : 'dark');
+            setIcon(btn);
+        });
+    }
+
+    function setIcon(btn) {
+        btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildToggle);
+    } else {
+        buildToggle();
+    }
+})();
