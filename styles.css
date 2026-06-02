@@ -1618,3 +1618,181 @@ code { color: var(--code-text) !important; }
         font-size: 0.9rem;
     }
 }
+/* ══════════════════════════════════════════════════════════════════
+   EDUCATION & RESEARCH SECTION — CV-style layout
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Entry block: one degree per block, separated by a subtle rule */
+.edu-entry {
+    margin-bottom: 1.9rem;
+    padding-bottom: 1.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.edu-entry:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Institution + location row */
+.edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.15rem;
+}
+
+.edu-institution {
+    font-family: 'Cinzel', serif;
+    font-size: 0.97rem;
+    font-weight: 700;
+    color: var(--text-heading);
+}
+
+.edu-location {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+/* Degree + date row */
+.edu-degree-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.4rem;
+}
+
+.edu-degree {
+    font-style: italic;
+    font-size: 0.93rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.edu-dates {
+    font-size: 0.86rem;
+    color: var(--text-date);
+    white-space: nowrap;
+}
+
+/* Thesis / courses line */
+.edu-meta {
+    margin: 0.25rem 0 0.3rem;
+    font-size: 0.91rem;
+    color: var(--text-primary);
+    line-height: 1.65;
+}
+
+/* Research areas label + inline list */
+.edu-ra-label {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0.3rem 0 0.5rem;
+    line-height: 1.6;
+}
+
+.edu-ra-label span {
+    color: var(--text-primary);
+}
+
+/* Keyword tag chips */
+.edu-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 0.4rem;
+}
+
+.edu-tag {
+    font-size: 0.79rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 3px;
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
+    color: var(--badge-text);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    line-height: 1.45;
+}
+
+.edu-tag:hover {
+    background: var(--accent-color);
+    color: #000;
+    border-color: var(--accent-color);
+}
+
+/* Research Interests sub-section */
+.edu-interests {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.edu-interests h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-heading) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 6px;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.edu-interests-list {
+    columns: 2;
+    column-gap: 2rem;
+    padding-left: 1.1rem;
+    margin: 0;
+}
+
+.edu-interests-list li {
+    font-size: 0.91rem;
+    color: var(--text-primary) !important;
+    line-height: 1.7;
+    margin-bottom: 0.3rem;
+    break-inside: avoid;
+}
+
+/* Publications footnote */
+.edu-pubs-note {
+    margin-top: 1.8rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.89rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+}
+
+/* Light-mode border adjustments */
+body.light-mode .edu-entry,
+body.light-mode .edu-interests,
+body.light-mode .edu-pubs-note {
+    border-color: rgba(0, 0, 0, 0.09);
+}
+
+/* Mobile: stack header/degree rows, single-column interests */
+@media (max-width: 620px) {
+    .edu-header,
+    .edu-degree-row {
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+
+    .edu-dates,
+    .edu-location {
+        white-space: normal;
+    }
+
+    .edu-interests-list {
+        columns: 1;
+    }
+}
